@@ -18,7 +18,7 @@ export default function AuthForm() {
     } else if (e.target.type === "password") {
       setPassword(e.target.value);
     }
-    if (password.length >= 8 && emailRegex.test(email)) {
+    if (password.length >= 7 && emailRegex.test(email)) {
       setCheckId(true);
     } else {
       setCheckId(false);
@@ -43,7 +43,6 @@ export default function AuthForm() {
 
     if (response.data.token) {
       localStorage.setItem("login-token", response.data.token);
-      console.log(response.data.token);
     }
 
     navigate("/");
@@ -57,7 +56,7 @@ export default function AuthForm() {
   };
 
   return (
-    <>
+    <article>
       <h1>회원가입 or 로그인</h1>
       <form onSubmit={onSubmit}>
         <input
@@ -65,6 +64,7 @@ export default function AuthForm() {
           placeholder="이메일"
           value={email}
           onChange={onChange}
+          style={{ marginRight: "10px" }}
         />
         <input
           type="password"
@@ -72,17 +72,25 @@ export default function AuthForm() {
           value={password}
           onChange={onChange}
         />
-        {checkId ? (
-          <input type="submit" onClick={onAccount} value="회원가입" />
-        ) : (
-          "회원가입"
-        )}
-        {checkId ? (
-          <input type="submit" onClick={onLogIn} value="로그인" />
-        ) : (
-          "로그인"
-        )}
+        <section
+          style={{
+            display: "flex",
+            marginTop: "10px",
+            justifyContent: "space-evenly",
+          }}
+        >
+          {checkId ? (
+            <input type="submit" onClick={onAccount} value="회원가입" />
+          ) : (
+            <p>회원가입</p>
+          )}
+          {checkId ? (
+            <input type="submit" onClick={onLogIn} value="로그인" />
+          ) : (
+            <p>로그인</p>
+          )}
+        </section>
       </form>
-    </>
+    </article>
   );
 }

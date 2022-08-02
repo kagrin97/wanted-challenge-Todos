@@ -16,8 +16,7 @@ export default function TodoForm({ getToDos }: any) {
   };
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    let response;
-    response = await axios.post(
+    await axios.post(
       `http://localhost:8080/todos`,
       {
         title: title,
@@ -30,23 +29,30 @@ export default function TodoForm({ getToDos }: any) {
       }
     );
     getToDos();
+    setTitle("");
+    setText("");
   };
 
   return (
-    <form onSubmit={onSubmit}>
-      <input
-        type="text"
-        value={title}
-        placeholder="제목"
-        onChange={onChangeTitle}
-      />
-      <input
-        type="text"
-        value={text}
-        placeholder="내용"
-        onChange={onChangeText}
-      />
-      <input type="submit" value="추가" />
-    </form>
+    <>
+      <h3>추가하고싶은 todo를 입력해주세요</h3>
+      <form onSubmit={onSubmit}>
+        <input
+          type="text"
+          value={title}
+          placeholder="제목"
+          onChange={onChangeTitle}
+          style={{ marginRight: "10px" }}
+        />
+        <input
+          type="text"
+          value={text}
+          placeholder="내용"
+          onChange={onChangeText}
+          style={{ marginRight: "10px" }}
+        />
+        <input type="submit" value="추가" />
+      </form>
+    </>
   );
 }
