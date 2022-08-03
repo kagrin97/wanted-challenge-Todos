@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import AuthForm from "../components/AuthForm";
@@ -8,6 +8,7 @@ import validator from "validator";
 export default function Auth() {
   const navigate = useNavigate();
 
+  // localStorage에 저장된 토큰의 유효성을 검사하는 함수
   const checkToken = () => {
     const token = localStorage.getItem("login-token");
     if (token) {

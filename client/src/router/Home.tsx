@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import TodoForm from "../components/TodoForm";
@@ -20,6 +20,7 @@ export default function Home() {
 
   const [todoNull, setTodoNull] = useState(false);
 
+  // todo를 가져오는 함수
   const getToDos = async () => {
     response = await axios.get(`http://localhost:8080/todos`, {
       headers: {
@@ -29,12 +30,14 @@ export default function Home() {
     setTods(response.data.data);
   };
 
+  // localStorage의 login-token을 삭제후 새로고침하는 로그아웃 함수
   const onLogOut = () => {
     localStorage.removeItem("login-token");
     alert("로그아웃 되었습니다.");
     window.location.reload();
   };
 
+  // todo를 눌러 상세보기를 보여주는 함수
   const onDetail = async (id: string) => {
     const response = await axios.get(`http://localhost:8080/todos/${id}`, {
       headers: {
@@ -42,6 +45,7 @@ export default function Home() {
       },
     });
 
+    // localStorage에 상세보기 기록을 저장하는 조건문
     const history = localStorage.getItem("history");
     if (history) {
       let arr = [...JSON.parse(history), response.data.data];
@@ -50,6 +54,7 @@ export default function Home() {
       localStorage.setItem("history", JSON.stringify([response.data.data]));
     }
 
+    // 상세보기창과 수정 창의 값을 재 할당하는 hook
     setDetail(response.data.data);
     setEditTilte(response.data.data.title);
     setEditText(response.data.data.content);
@@ -57,28 +62,23 @@ export default function Home() {
     setTodoNull(false);
   };
 
-  const checkRefresh = () => {
-    let curHistory;
-    const history = localStorage.getItem("history");
-
-    if (history) {
-      console.log("history");
-      curHistory = JSON.parse(history)[JSON.parse(history).length - 1];
-      setEditTilte(curHistory.title);
-      setEditText(curHistory.content);
-      setEditId(curHistory.id);
-    }
-  };
-
   useEffect(() => {
     getToDos();
-    checkRefresh();
-  }, []);
+  });
 
   return (
-    <main style={{ margin: "0 auto", width: "80%", textAlign: "center" }}>
+    <main
+      style={{
+        margin: "0 auto",
+        width: "80%",
+        textAlign: "center",
+      }}
+    >
       <nav>
-        <Link to={`/auth`} style={{ marginRight: "10px" }}>
+        <Link
+          to={`/auth`}
+          style={{ marginRight: "10px", textDecoration: "none" }}
+        >
           로그인
         </Link>
         <button onClick={onLogOut}>로그아웃</button>

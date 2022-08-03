@@ -19,6 +19,7 @@ export default function TodoDetail({
 
   const toggleEditing = () => setEditing(!editing);
 
+  // 수정을 취소하는 함수
   const onCancel = () => {
     setEditTilte(detail.title);
     setEditText(detail.content);
@@ -28,10 +29,11 @@ export default function TodoDetail({
     setEditTilte(e.target.value);
   };
 
-  const onChangeText = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangeText = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setEditText(e.target.value);
   };
 
+  // todo를 수정하는 함수
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     await axios.put(
@@ -51,6 +53,7 @@ export default function TodoDetail({
     onDetail(editId);
   };
 
+  // 새로고침시 데이터를 유지하는 조건문
   const history = localStorage.getItem("history");
   let curHistory;
   if (history) {
@@ -59,12 +62,14 @@ export default function TodoDetail({
 
   return (
     <article>
+      {/* todoNull은 삭제된 todo일 경우 에러를 표시하기 위한 변수 */}
       {todoNull ? (
         <section>
           <h2>상세 정보</h2>
           <p>존재하지 않는 todo입니다.</p>
         </section>
-      ) : editing ? (
+      ) : // editing은 수정을 확인 하는 변수
+      editing ? (
         <section>
           <h2>수정 하기</h2>
           <form
@@ -76,15 +81,16 @@ export default function TodoDetail({
               value={editTilte}
               placeholder="제목"
               onChange={onChangeTitle}
-              style={{ marginBottom: "10px", padding: "3px 10px" }}
+              style={{ marginBottom: "10px", padding: "3px 0" }}
             />
-            <input
-              type="text"
+            <textarea
+              rows={6}
               value={editText}
-              placeholder="내용"
+              placeholder="텍스트 입력..."
               onChange={onChangeText}
-              style={{ marginBottom: "10px", padding: "3px 10px" }}
+              style={{ margin: "10px 0" }}
             />
+
             <input
               type="submit"
               value="수정"
@@ -104,7 +110,8 @@ export default function TodoDetail({
               <p>최근 수정된 날짜: {detail.updatedAt.slice(0, 10)}</p>
               <button onClick={toggleEditing}>수정</button>
             </div>
-          ) : curHistory ? (
+          ) : // 새로고침시 보여줄 화면
+          curHistory ? (
             <div key={curHistory.id}>
               <h3>제목: {curHistory.title}</h3>
               <p>내용: {curHistory.content}</p>
