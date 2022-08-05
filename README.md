@@ -104,12 +104,14 @@ wanted-pre-onboarding-challenge-fe-1
    │  ├─ components
    │  │  ├─ AuthForm.tsx
    │  │  ├─ TodoForm.tsx
+   │  │  ├─ Nav.tsx
    │  │  ├─ TodoDetail.tsx
    │  │  └─ TodoList.tsx
    │  ├─ index.tsx
    │  ├─ App.tsx
    │  └─ router
    │     ├─ Auth.tsx
+   │     ├─ Detail.tsx
    │     └─ Home.tsx
    ├─ .gitignore
    ├─ package.json
