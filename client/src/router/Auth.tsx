@@ -28,7 +28,9 @@ export default function Auth() {
 
   return (
     <main style={{ margin: "0 auto", width: "80%", textAlign: "center" }}>
-      <Link to={`/`}>홈페이지</Link>
+      <Link to={`/`} style={{ textDecoration: "none" }}>
+        홈으로
+      </Link>
       <AuthForm />
     </main>
   );

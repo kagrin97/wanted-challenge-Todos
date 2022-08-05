@@ -1,65 +1,29 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 
+import Nav from "../components/Nav";
 import TodoForm from "../components/TodoForm";
 import TodoList from "../components/TodoList";
-import TodoDetail from "../components/TodoDetail";
 
 import axios from "axios";
 
 export default function Home() {
-  let response;
-  const token = localStorage.getItem("login-token");
-
   const [todos, setTods] = useState([]);
-  const [detail, setDetail] = useState<any>();
-
-  const [editTilte, setEditTilte] = useState("");
-  const [editText, setEditText] = useState("");
-  const [editId, setEditId] = useState("");
-
-  const [todoNull, setTodoNull] = useState(false);
 
   // todo를 가져오는 함수
   const getToDos = async () => {
-    response = await axios.get(`http://localhost:8080/todos`, {
-      headers: {
-        Authorization: "Bearer " + token,
-      },
-    });
-    setTods(response.data.data);
-  };
+    const token = localStorage.getItem("login-token");
+    let response: any;
 
-  // localStorage의 login-token을 삭제후 새로고침하는 로그아웃 함수
-  const onLogOut = () => {
-    localStorage.removeItem("login-token");
-    alert("로그아웃 되었습니다.");
-    window.location.reload();
-  };
-
-  // todo를 눌러 상세보기를 보여주는 함수
-  const onDetail = async (id: string) => {
-    const response = await axios.get(`http://localhost:8080/todos/${id}`, {
-      headers: {
-        Authorization: "Bearer " + token,
-      },
-    });
-
-    // localStorage에 상세보기 기록을 저장하는 조건문
-    const history = localStorage.getItem("history");
-    if (history) {
-      let arr = [...JSON.parse(history), response.data.data];
-      localStorage.setItem("history", JSON.stringify(arr));
-    } else {
-      localStorage.setItem("history", JSON.stringify([response.data.data]));
+    try {
+      response = await axios.get(`http://localhost:8080/todos`, {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      });
+    } catch (error: any) {
+      alert(error.response.data["details"]);
     }
-
-    // 상세보기창과 수정 창의 값을 재 할당하는 hook
-    setDetail(response.data.data);
-    setEditTilte(response.data.data.title);
-    setEditText(response.data.data.content);
-    setEditId(response.data.data.id);
-    setTodoNull(false);
+    setTods(response.data.data);
   };
 
   useEffect(() => {
@@ -74,36 +38,16 @@ export default function Home() {
         textAlign: "center",
       }}
     >
-      <nav>
-        <Link
-          to={`/auth`}
-          style={{ marginRight: "10px", textDecoration: "none" }}
-        >
-          로그인
-        </Link>
-        <button onClick={onLogOut}>로그아웃</button>
-      </nav>
-
-      <TodoForm getToDos={getToDos} />
-      <article style={{ display: "flex", justifyContent: "space-around" }}>
-        <TodoList
-          getToDos={getToDos}
-          onDetail={onDetail}
-          todos={todos}
-          setTodoNull={setTodoNull}
-        />
-        <TodoDetail
-          getToDos={getToDos}
-          detail={detail}
-          editTilte={editTilte}
-          editText={editText}
-          setEditTilte={setEditTilte}
-          setEditText={setEditText}
-          onDetail={onDetail}
-          editId={editId}
-          todoNull={todoNull}
-          setTodoNull={setTodoNull}
-        />
+      <Nav />
+      <TodoForm />
+      <article
+        style={{
+          display: "flex",
+          justifyContent: "space-around",
+        }}
+      >
+        <TodoList todos={todos} />
+        <h2 style={{ width: "216px" }}>상세 정보</h2>
       </article>
     </main>
   );

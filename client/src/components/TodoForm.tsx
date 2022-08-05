@@ -18,21 +18,26 @@ export default function TodoForm({ getToDos }: any) {
   // todo를 생성하는 함수
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    await axios.post(
-      `http://localhost:8080/todos`,
-      {
-        title: title,
-        content: text,
-      },
-      {
-        headers: {
-          Authorization: "Bearer " + token,
+    try {
+      await axios.post(
+        `http://localhost:8080/todos`,
+        {
+          title: title,
+          content: text,
         },
-      }
-    );
-    getToDos();
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
+    } catch (error: any) {
+      alert(error.response.data["details"]);
+    }
+
     setTitle("");
     setText("");
+    getToDos();
   };
 
   return (

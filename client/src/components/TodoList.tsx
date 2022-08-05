@@ -1,43 +1,45 @@
+import { Link, useParams } from "react-router-dom";
+
 import axios from "axios";
 
-export default function TodoList({
-  getToDos,
-  onDetail,
-  todos,
-  setTodoNull,
-}: any) {
+export default function TodoList({ getToDos, todos, setTodoNull }: any) {
   const token = localStorage.getItem("login-token");
+  let { id }: any = useParams();
 
   // todo를 삭제하는 함수
   const onDelete = async (id: string) => {
-    await axios.delete(`http://localhost:8080/todos/${id}`, {
-      headers: {
-        Authorization: "Bearer " + token,
-      },
-    });
-
-    // localStorage의 history에서 삭제할 todo를 찾아서 삭제하는 조건문
-    const history = localStorage.getItem("history");
-    if (history) {
-      let arr = JSON.parse(history).filter((todo: any) => todo.id !== id);
-      localStorage.setItem("history", JSON.stringify(arr));
+    try {
+      await axios.delete(`http://localhost:8080/todos/${id}`, {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      });
+    } catch (error: any) {
+      alert(error.response.data["details"]);
     }
 
-    setTodoNull(true);
+    // 현재 상세 정보가 삭제되었으면 빈화면을 보여준다.
+    if (setTodoNull) {
+      setTodoNull(true);
+    }
     getToDos();
   };
   return (
-    <div>
+    <article style={{ width: "216px" }}>
       <h2>리스트</h2>
       {todos.map((todo: any) => (
-        <ul
-          onClick={() => onDetail(todo.id)}
-          key={todo.id}
-          style={{ display: "flex" }}
-        >
+        <ul key={todo.id} style={{ display: "flex" }}>
           <li>
             <h3>
-              {todo.title}
+              <Link
+                style={{
+                  textDecoration: "none",
+                  color: id === todo.id ? "green" : "black",
+                }}
+                to={`/${todo.id}`}
+              >
+                {todo.title}
+              </Link>
               <button
                 onClick={() => onDelete(todo.id)}
                 style={{
@@ -52,6 +54,6 @@ export default function TodoList({
           </li>
         </ul>
       ))}
-    </div>
+    </article>
   );
 }

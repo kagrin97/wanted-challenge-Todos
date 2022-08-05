@@ -31,21 +31,29 @@ export default function AuthForm() {
   // 회원가입과 로그인을 위한 함수
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    let response;
+    let response: any;
 
     // 회원 가입
     if (newAccount) {
-      response = await axios.post(`http://localhost:8080/users/create`, {
-        email: email,
-        password: password,
-      });
+      try {
+        response = await axios.post(`http://localhost:8080/users/create`, {
+          email: email,
+          password: password,
+        });
+      } catch (error: any) {
+        alert(error.response.data["details"]);
+      }
     }
     // 로그인
     else {
-      response = await axios.post(`http://localhost:8080/users/login`, {
-        email: email,
-        password: password,
-      });
+      try {
+        response = await axios.post(`http://localhost:8080/users/login`, {
+          email: email,
+          password: password,
+        });
+      } catch (error: any) {
+        alert(error.response.data["details"]);
+      }
     }
 
     if (response.data.token) {
