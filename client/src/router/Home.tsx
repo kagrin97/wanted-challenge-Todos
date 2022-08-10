@@ -4,31 +4,21 @@ import Nav from "../components/Nav";
 import TodoForm from "../components/TodoForm";
 import TodoList from "../components/TodoList";
 
-import axios from "axios";
+import ToDoAxios from "../api/getTodo";
 
 export default function Home() {
   const [todos, setTods] = useState([]);
 
   // todo를 가져오는 함수
-  const getToDos = async () => {
-    const token = localStorage.getItem("login-token");
-    let response: any;
-
-    try {
-      response = await axios.get(`http://localhost:8080/todos`, {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      });
-    } catch (error: any) {
-      alert(error.response.data["details"]);
-    }
-    setTods(response.data.data);
+  const getToDos = () => {
+    ToDoAxios().then((res) => {
+      setTods(res.data);
+    });
   };
 
   useEffect(() => {
     getToDos();
-  });
+  }, []);
 
   return (
     <main
@@ -39,14 +29,14 @@ export default function Home() {
       }}
     >
       <Nav />
-      <TodoForm />
+      <TodoForm getToDos={getToDos} />
       <article
         style={{
           display: "flex",
           justifyContent: "space-around",
         }}
       >
-        <TodoList todos={todos} />
+        <TodoList getToDos={getToDos} todos={todos} />
         <h2 style={{ width: "216px" }}>상세 정보</h2>
       </article>
     </main>

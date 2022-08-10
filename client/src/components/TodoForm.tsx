@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 
-import axios from "axios";
+import TodoAddAxios from "../api/addTodo";
 
 export default function TodoForm({ getToDos }: any) {
-  const token = localStorage.getItem("login-token");
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
 
@@ -18,23 +17,10 @@ export default function TodoForm({ getToDos }: any) {
   // todo를 생성하는 함수
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    try {
-      await axios.post(
-        `http://localhost:8080/todos`,
-        {
-          title: title,
-          content: text,
-        },
-        {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        }
-      );
-    } catch (error: any) {
-      alert(error.response.data["details"]);
-    }
+    TodoAddAxios(title, text).then(emptyForm());
+  };
 
+  const emptyForm: any = () => {
     setTitle("");
     setText("");
     getToDos();

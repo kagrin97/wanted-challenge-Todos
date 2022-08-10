@@ -1,28 +1,18 @@
 import { Link, useParams } from "react-router-dom";
 
-import axios from "axios";
+import TodoDeleteAxios from "../api/deleteTodo";
 
 export default function TodoList({ getToDos, todos, setTodoNull }: any) {
-  const token = localStorage.getItem("login-token");
   let { id }: any = useParams();
 
   // todo를 삭제하는 함수
   const onDelete = async (id: string) => {
-    try {
-      await axios.delete(`http://localhost:8080/todos/${id}`, {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      });
-    } catch (error: any) {
-      alert(error.response.data["details"]);
-    }
+    TodoDeleteAxios(id).then(getToDos());
 
     // 현재 상세 정보가 삭제되었으면 빈화면을 보여준다.
     if (setTodoNull) {
       setTodoNull(true);
     }
-    getToDos();
   };
   return (
     <article style={{ width: "216px" }}>
