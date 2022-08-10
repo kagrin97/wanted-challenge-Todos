@@ -10,10 +10,10 @@ import ToDoAxios from "../api/getTodo";
 import ToDoDetailAxios from "../api/getDetail";
 
 export default function Detail() {
-  let { id }: any = useParams();
+  let { id } = useParams<{ id: string }>();
 
   const [todos, setTods] = useState([]);
-  const [detail, setDetail] = useState<any>();
+  const [detail, setDetail] = useState<object[]>();
 
   const [editTilte, setEditTilte] = useState("");
   const [editText, setEditText] = useState("");
@@ -29,15 +29,17 @@ export default function Detail() {
   };
 
   // todo를 눌러 상세보기를 보여주는 함수
-  const getDetail = async (id: string) => {
-    ToDoDetailAxios(id).then((res) => {
-      // 상세보기창과 수정 창의 제목, 내용을 재 할당하는 hook
-      setDetail(res.data);
-      setEditTilte(res.data.title);
-      setEditText(res.data.content);
-      setEditId(res.data.id);
-      setTodoNull(false);
-    });
+  const getDetail = async (id: string | undefined) => {
+    if (typeof id === "string") {
+      ToDoDetailAxios(id).then((res) => {
+        // 상세보기창과 수정 창의 제목, 내용을 재 할당하는 hook
+        setDetail(res.data);
+        setEditTilte(res.data.title);
+        setEditText(res.data.content);
+        setEditId(res.data.id);
+        setTodoNull(false);
+      });
+    }
   };
 
   useEffect(() => {
