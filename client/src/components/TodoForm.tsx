@@ -2,11 +2,14 @@ import React, { useState } from "react";
 
 import TodoAddApi from "../api/todo/TodoAddApi";
 
-interface TodoFormProps {
-  getToDos: () => void;
+import useGetTodos from "../hooks/useGetTodos";
+
+interface Props {
+  isReRender: boolean;
+  setIsReRender: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function TodoForm({ getToDos }: TodoFormProps) {
+export default function TodoForm({ isReRender, setIsReRender }: Props) {
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
 
@@ -31,7 +34,7 @@ export default function TodoForm({ getToDos }: TodoFormProps) {
   const emptyForm = () => {
     setTitle("");
     setText("");
-    getToDos();
+    setIsReRender(!isReRender);
   };
 
   return (

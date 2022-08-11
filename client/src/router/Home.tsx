@@ -5,24 +5,14 @@ import TodoForm from "../components/TodoForm";
 import TodoList from "../components/TodoList";
 
 import TodoApi from "../api/todo/TodoGetApi";
+import useGetTodos from "../hooks/useGetTodos";
 
 export default function Home() {
-  const [todos, setTods] = useState([]);
+  //const [todos, setTods] = useState([]);
 
-  // todo를 가져오는 함수
-  const getToDos = () => {
-    TodoApi()
-      .then((res) => {
-        setTods(res.data);
-      })
-      .catch((error) => {
-        alert(error.response.data["details"]);
-      });
-  };
-
-  useEffect(() => {
-    getToDos();
-  }, []);
+  const [isReRender, setIsReRender] = useState(false);
+  const todos = useGetTodos(isReRender);
+  console.log(todos);
 
   return (
     <main
@@ -33,14 +23,14 @@ export default function Home() {
       }}
     >
       <Nav />
-      <TodoForm getToDos={getToDos} />
+      <TodoForm isReRender={isReRender} setIsReRender={setIsReRender} />
       <article
         style={{
           display: "flex",
           justifyContent: "space-around",
         }}
       >
-        <TodoList getToDos={getToDos} todos={todos} />
+        <TodoList todos={todos} />
         <h2 style={{ width: "216px" }}>상세 정보</h2>
       </article>
     </main>

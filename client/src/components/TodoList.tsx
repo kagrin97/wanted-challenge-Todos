@@ -4,16 +4,11 @@ import { Link, useParams } from "react-router-dom";
 import TodoDeleteApi from "../api/todo/TodoDeleteApi";
 
 interface TodoDeleteProps {
-  getToDos: () => void;
   todos: object[];
   setIsTodoNull?: Dispatch<SetStateAction<boolean>>;
 }
 
-export default function TodoList({
-  getToDos,
-  todos,
-  setIsTodoNull,
-}: TodoDeleteProps) {
+export default function TodoList({ todos, setIsTodoNull }: TodoDeleteProps) {
   let { curTodoId } = useParams();
 
   // todo를 삭제하는 함수
@@ -23,7 +18,6 @@ export default function TodoList({
         alert(error.response.data["details"]);
       });
       deleteTodoCheck(deleteTodoId);
-      getToDos();
     }
   };
 
