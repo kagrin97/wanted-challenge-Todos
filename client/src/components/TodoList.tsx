@@ -1,31 +1,39 @@
 import { Dispatch, SetStateAction } from "react";
 import { Link, useParams } from "react-router-dom";
 
-import TodoDeleteAxios from "../api/deleteTodo";
+import TodoDeleteApi from "../api/todo/TodoDeleteApi";
 
 interface TodoDeleteProps {
   getToDos: () => void;
   todos: object[];
-  setTodoNull?: Dispatch<SetStateAction<boolean>>;
+  setIsTodoNull?: Dispatch<SetStateAction<boolean>>;
 }
 
 export default function TodoList({
   getToDos,
   todos,
-  setTodoNull,
+  setIsTodoNull,
 }: TodoDeleteProps) {
-  let { id }: any = useParams();
+  let { curTodoId } = useParams();
 
   // todo를 삭제하는 함수
-  const onDelete = async (id: string) => {
-    TodoDeleteAxios(id).then();
-    getToDos();
-
-    // 현재 상세 정보가 삭제되었으면 빈화면을 보여준다.
-    if (setTodoNull) {
-      setTodoNull(true);
+  const onDelete = async (deleteTodoId: string) => {
+    if (window.confirm("정말 삭제하시겠습니까?")) {
+      TodoDeleteApi(deleteTodoId).catch((error) => {
+        alert(error.response.data["details"]);
+      });
+      deleteTodoCheck(deleteTodoId);
+      getToDos();
     }
   };
+
+  // 현재 상세 정보가 삭제되었으면 빈화면을 보여준다.
+  const deleteTodoCheck = (deleteTodoId: string) => {
+    if (curTodoId === deleteTodoId && setIsTodoNull) {
+      setIsTodoNull(true);
+    }
+  };
+
   return (
     <article style={{ width: "216px" }}>
       <h2>리스트</h2>
@@ -36,9 +44,9 @@ export default function TodoList({
               <Link
                 style={{
                   textDecoration: "none",
-                  color: id === todo.id ? "green" : "black",
+                  color: curTodoId === todo.id ? "green" : "black",
                 }}
-                to={`/${todo.id}`}
+                to={`/todo/${todo.id}`}
               >
                 {todo.title}
               </Link>

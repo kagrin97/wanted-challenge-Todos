@@ -1,17 +1,17 @@
 import axios from "axios";
 
-export default async function getDetail(id: string) {
+export default async function TodoApi() {
   const token = localStorage.getItem("login-token");
   let response;
 
   try {
-    response = await axios.get(`http://localhost:8080/todos/${id}`, {
+    response = await axios.get(`http://localhost:8080/todos`, {
       headers: {
         Authorization: "Bearer " + token,
       },
     });
-  } catch (error: any) {
-    alert(error.response.data["details"]);
+  } catch (error) {
+    throw error;
   }
 
   if (response !== undefined) {

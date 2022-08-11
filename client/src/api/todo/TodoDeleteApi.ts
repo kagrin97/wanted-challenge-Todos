@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export default async function deleteTodo(id: string) {
+export default async function TodoDeleteApi(id: string) {
   const token = localStorage.getItem("login-token");
   try {
     await axios.delete(`http://localhost:8080/todos/${id}`, {
@@ -8,7 +8,7 @@ export default async function deleteTodo(id: string) {
         Authorization: "Bearer " + token,
       },
     });
-  } catch (error: any) {
-    alert(error.response.data["details"]);
+  } catch (error) {
+    throw error;
   }
 }

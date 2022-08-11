@@ -9,7 +9,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/auth" element={<Auth />} />
-        <Route path="/:id" element={<Detail />} />
+        <Route path="/todo/:curTodoId" element={<Detail />} />
         <Route path="/" element={<Home />} />
       </Routes>
     </Router>

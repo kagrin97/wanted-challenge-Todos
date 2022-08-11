@@ -1,74 +1,55 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+
+import AuthApi from "../api/auth/AuthApi";
 
 export default function AuthForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [checkId, setCheckId] = useState(false);
+  const [checkInput, setCheckInput] = useState(false);
   const [newAccount, setNewAccount] = useState(true);
-
-  // 이메일을 체크하는 정규표현식
-  const emailRegex = /[a-zA-Z0-9]+@[a-zA-Z]+.[a-zA-Z]+/gm;
 
   const navigate = useNavigate();
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.type === "email") {
-      setEmail(e.target.value);
-    } else if (e.target.type === "password") {
-      setPassword(e.target.value);
-    }
+  const onChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+  };
 
-    // 이메일과 패스워드가 유효한지 확인하는 조건문
-    if (password.length >= 7 && emailRegex.test(email)) {
-      setCheckId(true);
+  const onChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
+  };
+
+  const onAccount = () => {
+    setNewAccount(true);
+  };
+
+  const onLogIn = () => {
+    setNewAccount(false);
+  };
+
+  // 이메일과 패스워드가 유효한지 확인하는
+  const validateInput = () => {
+    const emailRegex = /[a-zA-Z0-9]+@[a-zA-Z]+.[a-zA-Z]+/gm;
+
+    if (emailRegex.test(email) && password.length >= 7) {
+      setCheckInput(true);
     } else {
-      setCheckId(false);
+      setCheckInput(false);
     }
   };
 
   // 회원가입과 로그인을 위한 함수
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    let response: any;
-
-    // 회원 가입
-    if (newAccount) {
-      try {
-        response = await axios.post(`http://localhost:8080/users/create`, {
-          email: email,
-          password: password,
-        });
-      } catch (error: any) {
-        alert(error.response.data["details"]);
-      }
-    }
-    // 로그인
-    else {
-      try {
-        response = await axios.post(`http://localhost:8080/users/login`, {
-          email: email,
-          password: password,
-        });
-      } catch (error: any) {
-        alert(error.response.data["details"]);
-      }
-    }
-
-    if (response.data.token) {
-      localStorage.setItem("login-token", response.data.token);
-    }
-
-    navigate("/");
+    AuthApi(newAccount, email, password)
+      .then(() => navigate("/"))
+      .catch((error) => alert(error.response.data["details"]));
   };
 
-  const onAccount = () => {
-    setNewAccount(true);
-  };
-  const onLogIn = () => {
-    setNewAccount(false);
-  };
+  useEffect(() => {
+    validateInput();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [email, password]);
 
   return (
     <article>
@@ -81,7 +62,7 @@ export default function AuthForm() {
             id="email"
             placeholder="이메일"
             value={email}
-            onChange={onChange}
+            onChange={onChangeEmail}
             style={{ marginBottom: "10px", marginLeft: "14px" }}
           />
         </section>
@@ -93,7 +74,7 @@ export default function AuthForm() {
             id="password"
             placeholder="비밀번호"
             value={password}
-            onChange={onChange}
+            onChange={onChangePassword}
           />
         </section>
 
@@ -105,12 +86,12 @@ export default function AuthForm() {
           }}
         >
           {/* 이메일과 패스워드가 유효한지 확인 후 버튼을 누를 수 있습니다. */}
-          {checkId ? (
+          {checkInput ? (
             <input type="submit" onClick={onAccount} value="회원가입" />
           ) : (
             <p>회원가입</p>
           )}
-          {checkId ? (
+          {checkInput ? (
             <input type="submit" onClick={onLogIn} value="로그인" />
           ) : (
             <p>로그인</p>

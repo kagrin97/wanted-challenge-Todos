@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import TodoAddAxios from "../api/addTodo";
+import TodoAddApi from "../api/todo/TodoAddApi";
 
 interface TodoFormProps {
   getToDos: () => void;
@@ -21,7 +21,9 @@ export default function TodoForm({ getToDos }: TodoFormProps) {
   // todo를 생성하는 함수
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    TodoAddAxios(title, text).then();
+    TodoAddApi(title, text).catch((error) => {
+      alert(error.response.data["details"]);
+    });
     emptyForm();
   };
 

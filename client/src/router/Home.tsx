@@ -4,16 +4,20 @@ import Nav from "../components/Nav";
 import TodoForm from "../components/TodoForm";
 import TodoList from "../components/TodoList";
 
-import ToDoAxios from "../api/getTodo";
+import TodoApi from "../api/todo/TodoGetApi";
 
 export default function Home() {
   const [todos, setTods] = useState([]);
 
   // todo를 가져오는 함수
   const getToDos = () => {
-    ToDoAxios().then((res) => {
-      setTods(res.data);
-    });
+    TodoApi()
+      .then((res) => {
+        setTods(res.data);
+      })
+      .catch((error) => {
+        alert(error.response.data["details"]);
+      });
   };
 
   useEffect(() => {

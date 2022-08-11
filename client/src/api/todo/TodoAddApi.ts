@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export default async function addTodo(title: string, text: string) {
+export default async function TodoAddApi(title: string, text: string) {
   const token = localStorage.getItem("login-token");
   try {
     await axios.post(
@@ -15,7 +15,7 @@ export default async function addTodo(title: string, text: string) {
         },
       }
     );
-  } catch (error: any) {
-    alert(error.response.data["details"]);
+  } catch (error) {
+    throw error;
   }
 }

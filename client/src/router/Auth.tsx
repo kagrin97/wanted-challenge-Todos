@@ -24,6 +24,7 @@ export default function Auth() {
 
   useEffect(() => {
     checkToken();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

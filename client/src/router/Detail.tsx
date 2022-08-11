@@ -6,46 +6,61 @@ import TodoForm from "../components/TodoForm";
 import TodoDetail from "../components/TodoDetail";
 import TodoList from "../components/TodoList";
 
-import ToDoAxios from "../api/getTodo";
-import ToDoDetailAxios from "../api/getDetail";
+import TodoGetApi from "../api/todo/TodoGetApi";
+import ToDoDetailsApi from "../api/todo/TodoDetailsApi";
+
+import { Todo } from "../types/todo";
 
 export default function Detail() {
-  let { id } = useParams<{ id: string }>();
+  let { curTodoId } = useParams<{ curTodoId: string }>();
 
   const [todos, setTods] = useState([]);
-  const [detail, setDetail] = useState<object[]>();
+  const [detail, setDetail] = useState<Todo>();
 
-  const [editTilte, setEditTilte] = useState("");
+  const [editTitle, setEditTitle] = useState("");
   const [editText, setEditText] = useState("");
   const [editId, setEditId] = useState("");
 
-  const [todoNull, setTodoNull] = useState(false);
+  const [isTodoNull, setIsTodoNull] = useState(false);
 
   // todo를 가져오는 함수
   const getToDos = () => {
-    ToDoAxios().then((res) => {
-      setTods(res.data);
-    });
+    TodoGetApi()
+      .then((res) => {
+        setTods(res.data);
+      })
+      .catch((error) => {
+        alert(error.response.data["details"]);
+      });
   };
 
   // todo를 눌러 상세보기를 보여주는 함수
-  const getDetail = async (id: string | undefined) => {
-    if (typeof id === "string") {
-      ToDoDetailAxios(id).then((res) => {
-        // 상세보기창과 수정 창의 제목, 내용을 재 할당하는 hook
-        setDetail(res.data);
-        setEditTilte(res.data.title);
-        setEditText(res.data.content);
-        setEditId(res.data.id);
-        setTodoNull(false);
-      });
+  const getDetail = async (curTodoId: string | undefined) => {
+    if (typeof curTodoId === "string") {
+      ToDoDetailsApi(curTodoId)
+        .then((res) => {
+          reRender(res.data);
+        })
+        .catch((error) => {
+          alert(error.response.data["details"]);
+        });
     }
+  };
+
+  // 모든 내용을 재 설정하는 함수
+  const reRender = (todo: Todo) => {
+    setDetail(todo);
+    setEditTitle(todo.title);
+    setEditText(todo.content);
+    setEditId(todo.id);
+    setIsTodoNull(false);
   };
 
   useEffect(() => {
     getToDos();
-    getDetail(id);
-  }, [id]);
+    getDetail(curTodoId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [curTodoId]);
 
   return (
     <main
@@ -58,17 +73,20 @@ export default function Detail() {
       <Nav />
       <TodoForm getToDos={getToDos} />
       <article style={{ display: "flex", justifyContent: "space-around" }}>
-        <TodoList getToDos={getToDos} todos={todos} setTodoNull={setTodoNull} />
+        <TodoList
+          getToDos={getToDos}
+          todos={todos}
+          setIsTodoNull={setIsTodoNull}
+        />
         <TodoDetail
           getToDos={getToDos}
           detail={detail}
-          editTilte={editTilte}
+          editTitle={editTitle}
           editText={editText}
-          setEditTilte={setEditTilte}
+          setEditTitle={setEditTitle}
           setEditText={setEditText}
           editId={editId}
-          todoNull={todoNull}
-          setTodoNull={setTodoNull}
+          isTodoNull={isTodoNull}
           getDetail={getDetail}
         />
       </article>
