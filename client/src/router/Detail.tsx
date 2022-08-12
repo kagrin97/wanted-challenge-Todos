@@ -6,15 +6,14 @@ import TodoForm from "../components/TodoForm";
 import TodoDetail from "../components/TodoDetail";
 import TodoList from "../components/TodoList";
 
-import TodoGetApi from "../api/todo/TodoGetApi";
-import ToDoDetailsApi from "../api/todo/TodoDetailsApi";
+import useGetDetail from "../hooks/useGetDetail";
+import useGetTodos from "../hooks/useGetTodos";
 
 import { Todo } from "../types/todo";
 
 export default function Detail() {
   let { curTodoId } = useParams<{ curTodoId: string }>();
 
-  const [todos, setTods] = useState([]);
   const [detail, setDetail] = useState<Todo>();
 
   const [editTitle, setEditTitle] = useState("");
@@ -23,23 +22,16 @@ export default function Detail() {
 
   const [isTodoNull, setIsTodoNull] = useState(false);
 
-  // todo를 가져오는 함수
-  const getToDos = () => {
-    TodoGetApi()
-      .then((res) => {
-        setTods(res.data);
-      })
-      .catch((error) => {
-        alert(error.response.data["details"]);
-      });
-  };
+  const [isReRender, setIsReRender] = useState(false);
+  const todos = useGetTodos(isReRender);
 
   // todo를 눌러 상세보기를 보여주는 함수
   const getDetail = async (curTodoId: string | undefined) => {
     if (typeof curTodoId === "string") {
-      ToDoDetailsApi(curTodoId)
-        .then((res) => {
-          reRender(res.data);
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      useGetDetail(curTodoId)
+        .then((todo) => {
+          reRender(todo);
         })
         .catch((error) => {
           alert(error.response.data["details"]);
@@ -57,7 +49,6 @@ export default function Detail() {
   };
 
   useEffect(() => {
-    getToDos();
     getDetail(curTodoId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [curTodoId]);
@@ -71,15 +62,15 @@ export default function Detail() {
       }}
     >
       <Nav />
-      <TodoForm getToDos={getToDos} />
+      <TodoForm setIsReRender={setIsReRender} />
       <article style={{ display: "flex", justifyContent: "space-around" }}>
         <TodoList
-          getToDos={getToDos}
           todos={todos}
           setIsTodoNull={setIsTodoNull}
+          setIsReRender={setIsReRender}
         />
         <TodoDetail
-          getToDos={getToDos}
+          setIsReRender={setIsReRender}
           detail={detail}
           editTitle={editTitle}
           editText={editText}

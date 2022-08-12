@@ -1,11 +1,11 @@
 import React, { useState, Dispatch, SetStateAction } from "react";
 
-import TodoUpdateApi from "../api/todo/TodoUpdateApi";
+import useUpdateTodo from "../hooks/useUpdateTodo";
 
 import { Todo } from "../types/todo";
 
 interface TodoDetailProps {
-  getToDos: () => void;
+  setIsReRender: React.Dispatch<React.SetStateAction<boolean>>;
   detail?: Todo;
   editTitle: string;
   editText: string;
@@ -17,7 +17,7 @@ interface TodoDetailProps {
 }
 
 export default function TodoDetail({
-  getToDos,
+  setIsReRender,
   detail,
   editTitle,
   editText,
@@ -43,13 +43,9 @@ export default function TodoDetail({
   // todo를 수정하는 함수
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (window.confirm("정말 수정하시겠습니까?")) {
-      TodoUpdateApi(editId, editTitle, editText)
-        .then(() => reRender())
-        .catch((error) => {
-          alert(error.response.data["details"]);
-        });
-    }
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    useUpdateTodo({ editId, editTitle, editText });
+    reRender();
   };
 
   // 수정을 취소하는 함수
@@ -64,7 +60,7 @@ export default function TodoDetail({
   const reRender = () => {
     setEditing(false);
     getDetail(editId);
-    getToDos();
+    setIsReRender((prev) => !prev);
   };
 
   return (

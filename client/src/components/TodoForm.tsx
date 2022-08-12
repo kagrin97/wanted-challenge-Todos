@@ -1,15 +1,12 @@
 import React, { useState } from "react";
 
-import TodoAddApi from "../api/todo/TodoAddApi";
-
-import useGetTodos from "../hooks/useGetTodos";
+import useAddTodo from "../hooks/useAddTodo";
 
 interface Props {
-  isReRender: boolean;
   setIsReRender: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function TodoForm({ isReRender, setIsReRender }: Props) {
+export default function TodoForm({ setIsReRender }: Props) {
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
 
@@ -24,9 +21,8 @@ export default function TodoForm({ isReRender, setIsReRender }: Props) {
   // todo를 생성하는 함수
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    TodoAddApi(title, text).catch((error) => {
-      alert(error.response.data["details"]);
-    });
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    useAddTodo({ title, text });
     emptyForm();
   };
 
@@ -34,7 +30,7 @@ export default function TodoForm({ isReRender, setIsReRender }: Props) {
   const emptyForm = () => {
     setTitle("");
     setText("");
-    setIsReRender(!isReRender);
+    setIsReRender((prev) => !prev);
   };
 
   return (

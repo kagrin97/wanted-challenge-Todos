@@ -1,27 +1,29 @@
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useDebugValue } from "react";
 import { Link, useParams } from "react-router-dom";
 
-import TodoDeleteApi from "../api/todo/TodoDeleteApi";
+import useDeleteTodo from "../hooks/useDeleteTodo";
 
 interface TodoDeleteProps {
   todos: object[];
   setIsTodoNull?: Dispatch<SetStateAction<boolean>>;
+  setIsReRender: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function TodoList({ todos, setIsTodoNull }: TodoDeleteProps) {
+export default function TodoList({
+  todos,
+  setIsTodoNull,
+  setIsReRender,
+}: TodoDeleteProps) {
   let { curTodoId } = useParams();
 
   // todo를 삭제하는 함수
   const onDelete = async (deleteTodoId: string) => {
-    if (window.confirm("정말 삭제하시겠습니까?")) {
-      TodoDeleteApi(deleteTodoId).catch((error) => {
-        alert(error.response.data["details"]);
-      });
-      deleteTodoCheck(deleteTodoId);
-    }
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    useDeleteTodo(deleteTodoId);
+    deleteTodoCheck(deleteTodoId);
+    setIsReRender((prev) => !prev);
   };
 
-  // 현재 상세 정보가 삭제되었으면 빈화면을 보여준다.
   const deleteTodoCheck = (deleteTodoId: string) => {
     if (curTodoId === deleteTodoId && setIsTodoNull) {
       setIsTodoNull(true);

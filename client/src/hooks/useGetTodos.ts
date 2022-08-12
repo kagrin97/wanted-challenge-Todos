@@ -8,7 +8,6 @@ export default function useGetTodos(a: boolean) {
   useEffect(() => {
     TodoGetApi()
       .then((res) => {
-        console.log("변경됨");
         setTods(res.data);
       })
       .catch((error) => {
