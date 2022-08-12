@@ -1,32 +1,24 @@
-import React, { useState, Dispatch, SetStateAction } from "react";
+import React, { useState } from "react";
 
 import useUpdateTodo from "../hooks/useUpdateTodo";
 
-import { Todo } from "../types/todo";
+import useEditTodoStore from "../store/useEditTodoStore";
+import useRenderStore from "../store/useRenderStore";
+import useNullTodoStore from "../store/useNullTodoStore";
+import useDetailTodoStore from "../store/useDetailTodoStore";
 
 interface TodoDetailProps {
-  setIsReRender: React.Dispatch<React.SetStateAction<boolean>>;
-  detail?: Todo;
-  editTitle: string;
-  editText: string;
-  setEditTitle: Dispatch<SetStateAction<string>>;
-  setEditText: Dispatch<SetStateAction<string>>;
-  editId: string;
-  isTodoNull: boolean;
   getDetail: (curTodoId: string | undefined) => void;
 }
 
-export default function TodoDetail({
-  setIsReRender,
-  detail,
-  editTitle,
-  editText,
-  setEditTitle,
-  setEditText,
-  editId,
-  isTodoNull,
-  getDetail,
-}: TodoDetailProps) {
+export default function TodoDetail({ getDetail }: TodoDetailProps) {
+  const { editId, editTitle, editText, setEditTitle, setEditText } =
+    useEditTodoStore();
+
+  const { isReRender, setIsReRender } = useRenderStore();
+  const { isTodoNull } = useNullTodoStore();
+  const { detail } = useDetailTodoStore();
+
   const [editing, setEditing] = useState(false);
 
   // 수정 모드와 상세정보 모드 토글
@@ -60,7 +52,7 @@ export default function TodoDetail({
   const reRender = () => {
     setEditing(false);
     getDetail(editId);
-    setIsReRender((prev) => !prev);
+    setIsReRender(!isReRender);
   };
 
   return (

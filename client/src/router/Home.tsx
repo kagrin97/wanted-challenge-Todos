@@ -1,15 +1,8 @@
-import { useState } from "react";
-
 import Nav from "../components/Nav";
 import TodoForm from "../components/TodoForm";
 import TodoList from "../components/TodoList";
 
-import useGetTodos from "../hooks/useGetTodos";
-
 export default function Home() {
-  const [isReRender, setIsReRender] = useState(false);
-  const todos = useGetTodos(isReRender);
-
   return (
     <main
       style={{
@@ -19,14 +12,14 @@ export default function Home() {
       }}
     >
       <Nav />
-      <TodoForm setIsReRender={setIsReRender} />
+      <TodoForm />
       <article
         style={{
           display: "flex",
           justifyContent: "space-around",
         }}
       >
-        <TodoList setIsReRender={setIsReRender} todos={todos} />
+        <TodoList />
         <h2 style={{ width: "216px" }}>상세 정보</h2>
       </article>
     </main>

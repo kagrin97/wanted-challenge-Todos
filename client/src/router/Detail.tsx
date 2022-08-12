@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 import Nav from "../components/Nav";
@@ -7,23 +7,19 @@ import TodoDetail from "../components/TodoDetail";
 import TodoList from "../components/TodoList";
 
 import useGetDetail from "../hooks/useGetDetail";
-import useGetTodos from "../hooks/useGetTodos";
+
+import useEditTodoStore from "../store/useEditTodoStore";
+import useNullTodoStore from "../store/useNullTodoStore";
+import useDetailTodoStore from "../store/useDetailTodoStore";
 
 import { Todo } from "../types/todo";
 
 export default function Detail() {
   let { curTodoId } = useParams<{ curTodoId: string }>();
 
-  const [detail, setDetail] = useState<Todo>();
-
-  const [editTitle, setEditTitle] = useState("");
-  const [editText, setEditText] = useState("");
-  const [editId, setEditId] = useState("");
-
-  const [isTodoNull, setIsTodoNull] = useState(false);
-
-  const [isReRender, setIsReRender] = useState(false);
-  const todos = useGetTodos(isReRender);
+  const { setEditTitle, setEditText, setEditId } = useEditTodoStore();
+  const { setIsTodoNull } = useNullTodoStore();
+  const { setDetail } = useDetailTodoStore();
 
   // todo를 눌러 상세보기를 보여주는 함수
   const getDetail = async (curTodoId: string | undefined) => {
@@ -62,24 +58,10 @@ export default function Detail() {
       }}
     >
       <Nav />
-      <TodoForm setIsReRender={setIsReRender} />
+      <TodoForm />
       <article style={{ display: "flex", justifyContent: "space-around" }}>
-        <TodoList
-          todos={todos}
-          setIsTodoNull={setIsTodoNull}
-          setIsReRender={setIsReRender}
-        />
-        <TodoDetail
-          setIsReRender={setIsReRender}
-          detail={detail}
-          editTitle={editTitle}
-          editText={editText}
-          setEditTitle={setEditTitle}
-          setEditText={setEditText}
-          editId={editId}
-          isTodoNull={isTodoNull}
-          getDetail={getDetail}
-        />
+        <TodoList />
+        <TodoDetail getDetail={getDetail} />
       </article>
     </main>
   );

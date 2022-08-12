@@ -2,13 +2,13 @@ import React, { useState } from "react";
 
 import useAddTodo from "../hooks/useAddTodo";
 
-interface Props {
-  setIsReRender: React.Dispatch<React.SetStateAction<boolean>>;
-}
+import useRenderStore from "../store/useRenderStore";
 
-export default function TodoForm({ setIsReRender }: Props) {
+export default function TodoForm() {
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
+
+  const { isReRender, setIsReRender } = useRenderStore();
 
   const onChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
@@ -30,7 +30,7 @@ export default function TodoForm({ setIsReRender }: Props) {
   const emptyForm = () => {
     setTitle("");
     setText("");
-    setIsReRender((prev) => !prev);
+    setIsReRender(!isReRender);
   };
 
   return (
