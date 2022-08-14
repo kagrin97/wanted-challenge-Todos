@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-
 import TodoDeleteApi from "../api/todo/TodoDeleteApi";
 
 export default async function useDeleteTodo(deleteTodoId: string) {

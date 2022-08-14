@@ -1,8 +1,15 @@
 import React, { useState } from "react";
+import { useMutation } from "react-query";
+import TodoAddApi from "../api/todo/TodoAddApi";
 
 import useAddTodo from "../hooks/useAddTodo";
 
 import useRenderStore from "../store/useRenderStore";
+
+interface PropsType {
+  title: string;
+  text: string;
+}
 
 export default function TodoForm() {
   const [title, setTitle] = useState("");
@@ -18,11 +25,12 @@ export default function TodoForm() {
     setText(e.target.value);
   };
 
+  const addTodoMutation = useAddTodo({ title, text });
+
   // todo를 생성하는 함수
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    useAddTodo({ title, text });
+    addTodoMutation.mutate({ title, text });
     emptyForm();
   };
 
@@ -50,6 +58,7 @@ export default function TodoForm() {
           value={title}
           placeholder="제목"
           onChange={onChangeTitle}
+          name="title"
         />
         <textarea
           rows={3}
@@ -57,6 +66,7 @@ export default function TodoForm() {
           placeholder="텍스트 입력..."
           onChange={onChangeText}
           style={{ margin: "10px 0" }}
+          name="text"
         />
         <input type="submit" value="추가" />
       </form>

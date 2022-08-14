@@ -1,16 +1,21 @@
 import { Link, useParams } from "react-router-dom";
 
+import TodoGetApi from "../api/todo/TodoGetApi";
+
 import useDeleteTodo from "../hooks/useDeleteTodo";
 import useGetTodos from "../hooks/useGetTodos";
 
 import useRenderStore from "../store/useRenderStore";
 import useNullTodoStore from "../store/useNullTodoStore";
+import { useQuery } from "react-query";
 
 export default function TodoList() {
   let { curTodoId } = useParams();
 
   const { isReRender, setIsReRender } = useRenderStore();
-  const todos = useGetTodos(isReRender);
+  //const todos = useGetTodos(isReRender);
+
+  const { data: todos } = useGetTodos();
 
   const { setIsTodoNull } = useNullTodoStore();
 
@@ -31,33 +36,34 @@ export default function TodoList() {
   return (
     <article style={{ width: "216px" }}>
       <h2>리스트</h2>
-      {todos.map((todo: any) => (
-        <ul key={todo.id} style={{ display: "flex" }}>
-          <li>
-            <h3>
-              <Link
-                style={{
-                  textDecoration: "none",
-                  color: curTodoId === todo.id ? "green" : "black",
-                }}
-                to={`/todo/${todo.id}`}
-              >
-                {todo.title}
-              </Link>
-              <button
-                onClick={() => onDelete(todo.id)}
-                style={{
-                  border: "0",
-                  cursor: "pointer",
-                  backgroundColor: "transparent",
-                }}
-              >
-                ❌
-              </button>
-            </h3>
-          </li>
-        </ul>
-      ))}
+      {todos &&
+        todos.map((todo: any) => (
+          <ul key={todo.id} style={{ display: "flex" }}>
+            <li>
+              <h3>
+                <Link
+                  style={{
+                    textDecoration: "none",
+                    color: curTodoId === todo.id ? "green" : "black",
+                  }}
+                  to={`/todo/${todo.id}`}
+                >
+                  {todo.title}
+                </Link>
+                <button
+                  onClick={() => onDelete(todo.id)}
+                  style={{
+                    border: "0",
+                    cursor: "pointer",
+                    backgroundColor: "transparent",
+                  }}
+                >
+                  ❌
+                </button>
+              </h3>
+            </li>
+          </ul>
+        ))}
     </article>
   );
 }

@@ -1,4 +1,4 @@
-import axios from "axios";
+import { apiBaseUrl } from "../api";
 
 export default async function TodoUpdateApi(
   editId: string,
@@ -8,7 +8,7 @@ export default async function TodoUpdateApi(
   const token = localStorage.getItem("login-token");
 
   try {
-    await axios.put(
+    await apiBaseUrl.put(
       `http://localhost:8080/todos/${editId}`,
       {
         title: editTilte,

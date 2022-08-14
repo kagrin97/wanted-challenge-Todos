@@ -1,19 +1,6 @@
-import { useState, useEffect } from "react";
-
 import TodoGetApi from "../api/todo/TodoGetApi";
+import { useQuery } from "react-query";
 
-export default function useGetTodos(a: boolean) {
-  const [todos, setTods] = useState([]);
-
-  useEffect(() => {
-    TodoGetApi()
-      .then((res) => {
-        setTods(res.data);
-      })
-      .catch((error) => {
-        alert(error.response.data["details"]);
-      });
-  }, [a]);
-
-  return todos;
+export default function useGetTodos() {
+  return useQuery("todoList", TodoGetApi, {});
 }
