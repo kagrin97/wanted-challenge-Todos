@@ -1,21 +1,10 @@
 import React, { useState } from "react";
-import { useMutation } from "react-query";
-import TodoAddApi from "../api/todo/TodoAddApi";
 
-import useAddTodo from "../hooks/useAddTodo";
-
-import useRenderStore from "../store/useRenderStore";
-
-interface PropsType {
-  title: string;
-  text: string;
-}
+import useAddTodo from "hooks/todo/useAddTodo";
 
 export default function TodoForm() {
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
-
-  const { isReRender, setIsReRender } = useRenderStore();
 
   const onChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
@@ -38,7 +27,6 @@ export default function TodoForm() {
   const emptyForm = () => {
     setTitle("");
     setText("");
-    setIsReRender(!isReRender);
   };
 
   return (

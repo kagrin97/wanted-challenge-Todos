@@ -1,30 +1,25 @@
 import { Link, useParams } from "react-router-dom";
 
-import TodoGetApi from "../api/todo/TodoGetApi";
+import useDeleteTodo from "hooks/todo/useDeleteTodo";
+import useGetTodos from "hooks/todo/useGetTodos";
 
-import useDeleteTodo from "../hooks/useDeleteTodo";
-import useGetTodos from "../hooks/useGetTodos";
-
-import useRenderStore from "../store/useRenderStore";
-import useNullTodoStore from "../store/useNullTodoStore";
-import { useQuery } from "react-query";
+import useNullTodoStore from "store/useNullTodoStore";
 
 export default function TodoList() {
   let { curTodoId } = useParams();
 
-  const { isReRender, setIsReRender } = useRenderStore();
-  //const todos = useGetTodos(isReRender);
-
-  const { data: todos } = useGetTodos();
-
   const { setIsTodoNull } = useNullTodoStore();
+
+  const todos = useGetTodos();
+
+  const deleteTodoMutation = useDeleteTodo("");
 
   // todo를 삭제하는 함수
   const onDelete = async (deleteTodoId: string) => {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    useDeleteTodo(deleteTodoId);
+    if (window.confirm("정말 삭제하시겠습니까?")) {
+      deleteTodoMutation.mutate({ deleteTodoId });
+    }
     deleteTodoCheck(deleteTodoId);
-    setIsReRender(!isReRender);
   };
 
   const deleteTodoCheck = (deleteTodoId: string) => {

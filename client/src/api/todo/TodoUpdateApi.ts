@@ -7,20 +7,16 @@ export default async function TodoUpdateApi(
 ) {
   const token = localStorage.getItem("login-token");
 
-  try {
-    await apiBaseUrl.put(
-      `http://localhost:8080/todos/${editId}`,
-      {
-        title: editTilte,
-        content: editText,
+  return await apiBaseUrl.put(
+    `/todos/${editId}`,
+    {
+      title: editTilte,
+      content: editText,
+    },
+    {
+      headers: {
+        Authorization: "Bearer " + token,
       },
-      {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      }
-    );
-  } catch (error) {
-    throw error;
-  }
+    }
+  );
 }

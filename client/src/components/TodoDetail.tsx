@@ -1,21 +1,15 @@
 import React, { useState } from "react";
 
-import useUpdateTodo from "../hooks/useUpdateTodo";
+import useUpdateTodo from "hooks/todo/useUpdateTodo";
 
-import useEditTodoStore from "../store/useEditTodoStore";
-import useRenderStore from "../store/useRenderStore";
-import useNullTodoStore from "../store/useNullTodoStore";
-import useDetailTodoStore from "../store/useDetailTodoStore";
+import useEditTodoStore from "store/useEditTodoStore";
+import useNullTodoStore from "store/useNullTodoStore";
+import useDetailTodoStore from "store/useDetailTodoStore";
 
-interface TodoDetailProps {
-  getDetail: (curTodoId: string | undefined) => void;
-}
-
-export default function TodoDetail({ getDetail }: TodoDetailProps) {
+export default function TodoDetail() {
   const { editId, editTitle, editText, setEditTitle, setEditText } =
     useEditTodoStore();
 
-  const { isReRender, setIsReRender } = useRenderStore();
   const { isTodoNull } = useNullTodoStore();
   const { detail } = useDetailTodoStore();
 
@@ -32,11 +26,15 @@ export default function TodoDetail({ getDetail }: TodoDetailProps) {
     setEditText(e.target.value);
   };
 
+  const updateTodoMutation = useUpdateTodo({ editId, editTitle, editText });
+
   // todo를 수정하는 함수
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    useUpdateTodo({ editId, editTitle, editText });
+    if (window.confirm("정말 수정하시겠습니까?")) {
+      updateTodoMutation.mutate({ editId, editTitle, editText });
+    }
+
     reRender();
   };
 
@@ -51,8 +49,6 @@ export default function TodoDetail({ getDetail }: TodoDetailProps) {
 
   const reRender = () => {
     setEditing(false);
-    getDetail(editId);
-    setIsReRender(!isReRender);
   };
 
   return (

@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 
-import AuthApi from "../api/auth/AuthApi";
+import useSignUp from "hooks/auth/useSignUp";
+import useLogIn from "hooks/auth/useLogIn";
 
 export default function AuthForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [checkInput, setCheckInput] = useState(false);
   const [newAccount, setNewAccount] = useState(true);
-
-  const navigate = useNavigate();
 
   const onChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -38,12 +36,18 @@ export default function AuthForm() {
     }
   };
 
+  const signUpMutation = useSignUp(email, password);
+  const logInMutation = useLogIn(email, password);
+
   // 회원가입과 로그인을 위한 함수
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    AuthApi(newAccount, email, password)
-      .then(() => navigate("/"))
-      .catch((error) => alert(error.response.data["details"]));
+
+    if (newAccount) {
+      signUpMutation.mutate({ email, password });
+    } else {
+      logInMutation.mutate({ email, password });
+    }
   };
 
   useEffect(() => {
