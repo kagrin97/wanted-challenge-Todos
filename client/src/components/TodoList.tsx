@@ -5,6 +5,8 @@ import useGetTodos from "hooks/todo/useGetTodos";
 
 import useNullTodoStore from "store/useNullTodoStore";
 
+import { Todo } from "types/todo";
+
 export default function TodoList() {
   let { curTodoId } = useParams();
 
@@ -32,7 +34,7 @@ export default function TodoList() {
     <article style={{ width: "216px" }}>
       <h2>리스트</h2>
       {todos &&
-        todos.map((todo: any) => (
+        todos.map((todo: Todo) => (
           <ul key={todo.id} style={{ display: "flex" }}>
             <li>
               <h3>
