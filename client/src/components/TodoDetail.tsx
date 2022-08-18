@@ -6,6 +6,8 @@ import useEditTodoStore from "store/useEditTodoStore";
 import useNullTodoStore from "store/useNullTodoStore";
 import useDetailTodoStore from "store/useDetailTodoStore";
 
+import { TextField, Button } from "@mui/material";
+
 export default function TodoDetail() {
   const { editId, editTitle, editText, setEditTitle, setEditText } =
     useEditTodoStore();
@@ -35,7 +37,7 @@ export default function TodoDetail() {
       updateTodoMutation.mutate({ editId, editTitle, editText });
     }
 
-    reRender();
+    setEditing(false);
   };
 
   // 수정을 취소하는 함수
@@ -43,16 +45,12 @@ export default function TodoDetail() {
     if (detail && window.confirm("정말 수정을 취소하시겠습니까?")) {
       setEditTitle(detail.title);
       setEditText(detail.content);
-      reRender();
+      setEditing(false);
     }
   };
 
-  const reRender = () => {
-    setEditing(false);
-  };
-
   return (
-    <article style={{ width: "216px" }}>
+    <article style={{ width: "16.313rem" }}>
       {/* todoNull은 삭제된 todo일 경우 에러를 표시하기 위한 변수 */}
       {isTodoNull ? (
         <section>
@@ -67,41 +65,52 @@ export default function TodoDetail() {
             onSubmit={onSubmit}
             style={{ display: "flex", flexDirection: "column" }}
           >
-            <input
-              type="text"
+            <TextField
+              id="outlined-multiline-flexible"
+              label="제목"
+              multiline
+              maxRows={4}
               value={editTitle}
-              placeholder="제목"
               onChange={onChangeTitle}
-              style={{ marginBottom: "10px", padding: "3px 0" }}
-            />
-            <textarea
-              rows={6}
-              value={editText}
-              placeholder="텍스트 입력..."
-              onChange={onChangeText}
-              style={{ margin: "10px 0" }}
             />
 
-            <input
-              type="submit"
-              value="수정"
-              style={{ marginBottom: "10px" }}
+            <TextField
+              id="outlined-multiline-flexible"
+              label="텍스트 입력..."
+              multiline
+              rows={4}
+              value={editText}
+              onChange={onChangeText}
+              sx={{ my: "1rem" }}
             />
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <Button type="submit" variant="contained">
+                수정
+              </Button>
+              <Button onClick={onCancel} variant="outlined">
+                취소
+              </Button>
+            </div>
           </form>
-          <button onClick={onCancel} style={{ width: "216px" }}>
-            취소
-          </button>
         </section>
       ) : (
         <section>
           <h2>상세 정보</h2>
           {detail ? (
-            <div key={detail.id}>
+            <div
+              key={detail.id}
+              style={{
+                wordBreak: "break-all",
+              }}
+            >
               <h3>제목: {detail.title}</h3>
               <p>내용: {detail.content}</p>
               <p>만들어진 날짜: {detail.createdAt.slice(0, 10)}</p>
               <p>최근 수정된 날짜: {detail.updatedAt.slice(0, 10)}</p>
-              <button onClick={toggleEditing}>수정</button>
+
+              <Button onClick={toggleEditing} variant="contained">
+                수정
+              </Button>
             </div>
           ) : (
             ""

@@ -16,7 +16,6 @@ export default function useAddTodo({ title, text }: PropsType) {
 
   return useMutation(({ title, text }: PropsType) => TodoAddApi(title, text), {
     onSuccess: async () => {
-      console.log("todo 추가 성공");
       queryClient.invalidateQueries("todoList");
     },
     onError: (error) => {

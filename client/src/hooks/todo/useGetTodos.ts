@@ -8,9 +8,6 @@ export default function useGetTodos() {
   const navigate = useNavigate();
 
   const { data } = useQuery("todoList", TodoGetApi, {
-    onSuccess: async (data) => {
-      console.log("todoList 조회 성공");
-    },
     onError: (error) => {
       if (error instanceof AxiosError) {
         alert(error?.response?.data["details"]);

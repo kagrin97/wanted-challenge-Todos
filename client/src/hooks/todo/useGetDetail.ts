@@ -27,7 +27,6 @@ export default async function useGetDetail(curTodoId: string | undefined) {
 
   useQuery(["todoDetail", curTodoId], () => TodoDetailsApi(curTodoId), {
     onSuccess: (data) => {
-      console.log("상세정보 불러오기 성공");
       reRenderValue(data.data.data);
     },
     onError: (error) => {

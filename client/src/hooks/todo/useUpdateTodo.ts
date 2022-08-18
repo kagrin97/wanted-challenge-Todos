@@ -23,7 +23,6 @@ export default function useUpdateTodo({
       TodoUpdateApi(editId, editTitle, editText),
     {
       onSuccess: async () => {
-        console.log("수정 성공");
         queryClient.invalidateQueries("todoList");
       },
       onError: (error) => {

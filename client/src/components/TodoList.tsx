@@ -7,6 +7,10 @@ import useNullTodoStore from "store/useNullTodoStore";
 
 import { Todo } from "types/todo";
 
+import { ListItemText, Button, Paper } from "@mui/material";
+
+import DeleteIcon from "@mui/icons-material/Delete";
+
 export default function TodoList() {
   let { curTodoId } = useParams();
 
@@ -31,32 +35,37 @@ export default function TodoList() {
   };
 
   return (
-    <article style={{ width: "216px" }}>
+    <article style={{ width: "16.313rem" }}>
       <h2>리스트</h2>
       {todos &&
         todos.map((todo: Todo) => (
-          <ul key={todo.id} style={{ display: "flex" }}>
+          <ul key={todo.id}>
             <li>
-              <h3>
+              <h3 style={{ display: "flex" }}>
                 <Link
                   style={{
                     textDecoration: "none",
-                    color: curTodoId === todo.id ? "green" : "black",
+                    color: curTodoId === todo.id ? "#1976D2" : "black",
                   }}
                   to={`/todo/${todo.id}`}
                 >
-                  {todo.title}
+                  <div
+                    style={{
+                      overflow: "hidden",
+                      width: "12.313rem",
+                      textOverflow: "ellipsis",
+                    }}
+                  >
+                    {todo.title}
+                  </div>
                 </Link>
-                <button
+                <DeleteIcon
                   onClick={() => onDelete(todo.id)}
-                  style={{
-                    border: "0",
+                  sx={{
                     cursor: "pointer",
-                    backgroundColor: "transparent",
+                    color: "crimson",
                   }}
-                >
-                  ❌
-                </button>
+                />
               </h3>
             </li>
           </ul>

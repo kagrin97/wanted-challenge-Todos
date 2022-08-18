@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 
+import { Button } from "@mui/material";
+
 export default function Nav() {
   // localStorage의 login-token을 삭제후 새로고침하는 로그아웃 함수
   const onLogOut = () => {
@@ -10,16 +12,16 @@ export default function Nav() {
 
   return (
     <nav>
-      <Link to="/">홈</Link>
       <Link
         to={`/auth`}
-        style={{ marginRight: "10px", textDecoration: "none" }}
+        style={{ marginRight: "1rem", textDecoration: "none" }}
       >
         로그인
       </Link>
-      <button onClick={onLogOut} style={{ cursor: "pointer" }}>
+
+      <Button onClick={onLogOut} variant="text" sx={{ fontSize: "1rem" }}>
         로그아웃
-      </button>
+      </Button>
     </nav>
   );
 }

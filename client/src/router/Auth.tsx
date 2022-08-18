@@ -5,6 +5,8 @@ import AuthForm from "components/AuthForm";
 
 import validator from "validator";
 
+import HomeIcon from "@mui/icons-material/Home";
+
 export default function Auth() {
   const navigate = useNavigate();
 
@@ -29,8 +31,8 @@ export default function Auth() {
 
   return (
     <main style={{ margin: "0 auto", width: "80%", textAlign: "center" }}>
-      <Link to={`/`} style={{ textDecoration: "none" }}>
-        홈으로
+      <Link to={`/`}>
+        <HomeIcon fontSize="large" color="primary" />
       </Link>
       <AuthForm />
     </main>

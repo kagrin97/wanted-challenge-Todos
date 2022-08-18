@@ -17,7 +17,6 @@ export default function useDeleteTodo(deleteTodoId: string) {
     ({ deleteTodoId }: PropsType) => TodoDeleteApi(deleteTodoId),
     {
       onSuccess: async () => {
-        console.log("삭제 성공");
         queryClient.invalidateQueries("todoList");
       },
       onError: (error) => {

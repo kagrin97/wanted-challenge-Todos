@@ -3,11 +3,17 @@ import React, { useState, useEffect } from "react";
 import useSignUp from "hooks/auth/useSignUp";
 import useLogIn from "hooks/auth/useLogIn";
 
+import useErrorStore from "store/useErrorStore";
+
+import { Paper, TextField, ButtonGroup, Button } from "@mui/material";
+
 export default function AuthForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [checkInput, setCheckInput] = useState(false);
   const [newAccount, setNewAccount] = useState(true);
+
+  const { isError, errorText } = useErrorStore();
 
   const onChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -56,52 +62,41 @@ export default function AuthForm() {
   }, [email, password]);
 
   return (
-    <article>
+    <Paper elevation={3} sx={{ mt: "1rem", py: "6rem", borderRadius: 3 }}>
       <h1>회원가입 or 로그인</h1>
       <form onSubmit={onSubmit}>
-        <section>
-          <label htmlFor="email">이메일 : </label>
-          <input
-            type="email"
-            id="email"
-            placeholder="이메일"
-            value={email}
-            onChange={onChangeEmail}
-            style={{ marginBottom: "10px", marginLeft: "14px" }}
-          />
+        <section style={{ marginBottom: "0.625rem" }}>
+          <TextField value={email} onChange={onChangeEmail} label="이메일" />
         </section>
-
         <section>
-          <label htmlFor="password">비밀번호 : </label>
-          <input
-            type="password"
-            id="password"
-            placeholder="비밀번호"
+          <TextField
             value={password}
             onChange={onChangePassword}
+            label="비밀번호"
+            type="password"
           />
         </section>
-
         <section
           style={{
-            display: "flex",
-            marginTop: "10px",
-            justifyContent: "space-evenly",
+            margin: "10px 0",
           }}
         >
           {/* 이메일과 패스워드가 유효한지 확인 후 버튼을 누를 수 있습니다. */}
-          {checkInput ? (
-            <input type="submit" onClick={onAccount} value="회원가입" />
-          ) : (
-            <p>회원가입</p>
-          )}
-          {checkInput ? (
-            <input type="submit" onClick={onLogIn} value="로그인" />
-          ) : (
-            <p>로그인</p>
-          )}
+          <ButtonGroup
+            disabled={!checkInput}
+            variant="outlined"
+            aria-label="text button group"
+          >
+            <Button type="submit" onClick={onAccount}>
+              회원가입
+            </Button>
+            <Button type="submit" onClick={onLogIn}>
+              로그인
+            </Button>
+          </ButtonGroup>
         </section>
       </form>
-    </article>
+      {isError ? <span style={{ color: "red" }}>{errorText}</span> : ""}
+    </Paper>
   );
 }

@@ -4,6 +4,8 @@ import { AxiosError } from "axios";
 
 import LogInApi from "api/auth/LogInApi";
 
+import useErrorStore from "store/useErrorStore";
+
 interface PropsType {
   email: string;
   password: string;
@@ -12,17 +14,20 @@ interface PropsType {
 export default function useLogIn(email: string, password: string) {
   const navigate = useNavigate();
 
+  const { setIsError, setErrorText } = useErrorStore();
+
   return useMutation(
     ({ email, password }: PropsType) => LogInApi(email, password),
     {
       onSuccess: (data) => {
-        console.log("로그인 성공");
         localStorage.setItem("login-token", data.data.token);
+        setIsError(false);
         navigate("/");
       },
       onError: (error) => {
         if (error instanceof AxiosError) {
-          alert(error?.response?.data["details"]);
+          setIsError(true);
+          setErrorText(error?.response?.data["details"]);
         }
       },
     }

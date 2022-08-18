@@ -2,6 +2,8 @@ import React, { useState } from "react";
 
 import useAddTodo from "hooks/todo/useAddTodo";
 
+import { TextField, Button } from "@mui/material";
+
 export default function TodoForm() {
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
@@ -10,7 +12,7 @@ export default function TodoForm() {
     setTitle(e.target.value);
   };
 
-  const onChangeText = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const onChangeText = (e: React.ChangeEvent<HTMLInputElement>) => {
     setText(e.target.value);
   };
 
@@ -31,32 +33,37 @@ export default function TodoForm() {
 
   return (
     <article>
-      <h3>추가하고싶은 todo를 입력해주세요</h3>
       <form
         onSubmit={onSubmit}
         style={{
           display: "flex",
           flexDirection: "column",
-          width: "30%",
+          width: "80%",
+          maxWidth: "18.750rem",
           margin: "0 auto",
         }}
       >
-        <input
-          type="text"
+        <TextField
+          id="outlined-multiline-flexible"
+          label="제목"
+          multiline
+          maxRows={4}
           value={title}
-          placeholder="제목"
           onChange={onChangeTitle}
-          name="title"
         />
-        <textarea
-          rows={3}
+
+        <TextField
+          id="outlined-multiline-flexible"
+          label="텍스트 입력..."
+          multiline
+          maxRows={4}
           value={text}
-          placeholder="텍스트 입력..."
           onChange={onChangeText}
-          style={{ margin: "10px 0" }}
-          name="text"
+          sx={{ my: "1rem" }}
         />
-        <input type="submit" value="추가" />
+        <Button type="submit" variant="contained">
+          추가
+        </Button>
       </form>
     </article>
   );

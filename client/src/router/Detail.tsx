@@ -7,6 +7,17 @@ import TodoList from "components/TodoList";
 
 import useGetDetail from "hooks/todo/useGetDetail";
 
+import styled from "styled-components";
+
+const Article = styled.article`
+  display: flex;
+  justify-content: space-around;
+  @media screen and (max-width: 500px) {
+    flex-direction: column;
+    align-items: center;
+  }
+`;
+
 export default function Detail() {
   let { curTodoId } = useParams<{ curTodoId: string }>();
   useGetDetail(curTodoId);
@@ -21,10 +32,10 @@ export default function Detail() {
     >
       <Nav />
       <TodoForm />
-      <article style={{ display: "flex", justifyContent: "space-around" }}>
+      <Article>
         <TodoList />
         <TodoDetail />
-      </article>
+      </Article>
     </main>
   );
 }
