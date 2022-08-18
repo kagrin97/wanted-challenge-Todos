@@ -1,8 +1,8 @@
-import { apiBaseUrl } from "../api";
+import { apiBase } from "../api";
 
-export default async function TodoApi() {
+export default function TodoApi() {
   const token = localStorage.getItem("login-token");
-  return await apiBaseUrl.get(`/todos`, {
+  return apiBase.get(`/todos`, {
     headers: {
       Authorization: "Bearer " + token,
     },

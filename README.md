@@ -9,7 +9,11 @@
 ## 🎉 프로젝트 실행
 
 ```bash
-> npm start // 클라이언트와 서버가 실행됩니다.
+> git clone https://github.com/kagrin97/wanted-pre-onboarding-challenge-fe-1.git
+
+> npm run setting // git clone후 처음 딱 한번 실행하는 script입니다.
+
+> npm run start // 클라이언트와 서버가 실행됩니다.
 ```
 
 ## 🚀🚀🚀🚀🚀🚀media-query시 리스트와 상세정보가 별로 나이스하지않음

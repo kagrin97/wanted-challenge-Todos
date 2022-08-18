@@ -8,7 +8,11 @@ import useDetailTodoStore from "store/useDetailTodoStore";
 
 import { TextField, Button } from "@mui/material";
 
-export default function TodoDetail() {
+interface PropsType {
+  isMobileTitle?: boolean;
+}
+
+export default function TodoDetail({ isMobileTitle }: PropsType) {
   const { editId, editTitle, editText, setEditTitle, setEditText } =
     useEditTodoStore();
 
@@ -54,13 +58,13 @@ export default function TodoDetail() {
       {/* todoNull은 삭제된 todo일 경우 에러를 표시하기 위한 변수 */}
       {isTodoNull ? (
         <section>
-          <h2>상세 정보</h2>
+          {!isMobileTitle && <h2>상세 정보</h2>}
           <p>존재하지 않는 todo입니다.</p>
         </section>
       ) : // editing은 수정 모드를 확인 하는 변수
       editing ? (
         <section>
-          <h2>수정 하기</h2>
+          {!isMobileTitle && <h2>상세 정보</h2>}
           <form
             onSubmit={onSubmit}
             style={{ display: "flex", flexDirection: "column" }}
@@ -95,7 +99,7 @@ export default function TodoDetail() {
         </section>
       ) : (
         <section>
-          <h2>상세 정보</h2>
+          {!isMobileTitle && <h2>상세 정보</h2>}
           {detail ? (
             <div
               key={detail.id}

@@ -1,13 +1,13 @@
-import { apiBaseUrl } from "../api";
+import { apiBase } from "../api";
 
-export default async function TodoUpdateApi(
+export default function TodoUpdateApi(
   editId: string,
   editTilte: string,
   editText: string
 ) {
   const token = localStorage.getItem("login-token");
 
-  return await apiBaseUrl.put(
+  return apiBase.put(
     `/todos/${editId}`,
     {
       title: editTilte,

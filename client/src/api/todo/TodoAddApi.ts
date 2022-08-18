@@ -1,9 +1,9 @@
-import { apiBaseUrl } from "api/api";
+import { apiBase } from "api/api";
 
-export default async function TodoAddApi(title: string, text: string) {
+export default function TodoAddApi(title: string, text: string) {
   const token = localStorage.getItem("login-token");
 
-  return await apiBaseUrl.post(
+  return apiBase.post(
     `/todos`,
     {
       title: title,

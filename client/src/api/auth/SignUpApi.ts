@@ -1,7 +1,7 @@
-import { apiBaseUrl } from "api/api";
+import { apiBase } from "api/api";
 
-export default async function SignUpApi(email: string, password: string) {
-  return await apiBaseUrl.post(`/users/create`, {
+export default function SignUpApi(email: string, password: string) {
+  return apiBase.post(`/users/create`, {
     email: email,
     password: password,
   });

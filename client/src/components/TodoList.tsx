@@ -1,9 +1,12 @@
 import { Link, useParams } from "react-router-dom";
 
+import TodoDetail from "components/TodoDetail";
+
 import useDeleteTodo from "hooks/todo/useDeleteTodo";
 import useGetTodos from "hooks/todo/useGetTodos";
 
 import useNullTodoStore from "store/useNullTodoStore";
+import useGetWidthStore from "store/useGetWidthStore";
 
 import { Todo } from "types/todo";
 
@@ -16,9 +19,13 @@ export default function TodoList() {
 
   const { setIsTodoNull } = useNullTodoStore();
 
+  const { windowSize } = useGetWidthStore();
+
   const todos = useGetTodos();
 
   const deleteTodoMutation = useDeleteTodo("");
+
+  const isMobileTitle = true;
 
   // todo를 삭제하는 함수
   const onDelete = async (deleteTodoId: string) => {
@@ -39,37 +46,42 @@ export default function TodoList() {
       <h2>리스트</h2>
       {todos &&
         todos.map((todo: Todo) => (
-          <ul key={todo.id}>
-            <li>
-              <h3 style={{ display: "flex" }}>
-                <Link
-                  style={{
-                    textDecoration: "none",
-                    color: curTodoId === todo.id ? "#1976D2" : "black",
-                  }}
-                  to={`/todo/${todo.id}`}
-                >
-                  <div
+          <div key={todo.id}>
+            <ul>
+              <li>
+                <h3 style={{ display: "flex" }}>
+                  <Link
                     style={{
-                      whiteSpace: "nowrap",
-                      overflow: "hidden",
-                      width: "12.313rem",
-                      textOverflow: "ellipsis",
+                      textDecoration: "none",
+                      color: curTodoId === todo.id ? "#1976D2" : "black",
                     }}
+                    to={curTodoId === todo.id ? "/" : `/todo/${todo.id}`}
                   >
-                    {todo.title}
-                  </div>
-                </Link>
-                <DeleteIcon
-                  onClick={() => onDelete(todo.id)}
-                  sx={{
-                    cursor: "pointer",
-                    color: "crimson",
-                  }}
-                />
-              </h3>
-            </li>
-          </ul>
+                    <div
+                      style={{
+                        whiteSpace: "nowrap",
+                        overflow: "hidden",
+                        width: "12.313rem",
+                        textOverflow: "ellipsis",
+                      }}
+                    >
+                      {todo.title}
+                    </div>
+                  </Link>
+                  <DeleteIcon
+                    onClick={() => onDelete(todo.id)}
+                    sx={{
+                      cursor: "pointer",
+                      color: "crimson",
+                    }}
+                  />
+                </h3>
+              </li>
+            </ul>
+            {curTodoId === todo.id && windowSize <= 689 && (
+              <TodoDetail isMobileTitle={isMobileTitle} />
+            )}
+          </div>
         ))}
     </article>
   );

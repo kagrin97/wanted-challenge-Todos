@@ -1,8 +1,8 @@
-import { apiBaseUrl } from "api/api";
+import { apiBase } from "api/api";
 
-export default async function TodoDeleteApi(id: string) {
+export default function TodoDeleteApi(id: string) {
   const token = localStorage.getItem("login-token");
-  return await apiBaseUrl.delete(`/todos/${id}`, {
+  return apiBase.delete(`/todos/${id}`, {
     headers: {
       Authorization: "Bearer " + token,
     },

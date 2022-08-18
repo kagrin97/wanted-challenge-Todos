@@ -13,14 +13,9 @@ export default function Auth() {
   // localStorage에 저장된 토큰의 유효성을 검사하는 함수
   const checkToken = () => {
     const token = localStorage.getItem("login-token");
-    if (token) {
-      if (!validator.isJWT(token)) {
-        alert("토큰이 유효하지 않습니다.");
-        navigate("/");
-      } else {
-        alert("유효한 토큰이 존재해 로그인 되었습니다.");
-        navigate("/");
-      }
+    if (token && validator.isJWT(token)) {
+      alert("유효한 토큰이 존재해 로그인 되었습니다.");
+      navigate("/");
     }
   };
 
