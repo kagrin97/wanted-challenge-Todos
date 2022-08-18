@@ -51,6 +51,7 @@ export default function TodoList() {
                 >
                   <div
                     style={{
+                      whiteSpace: "nowrap",
                       overflow: "hidden",
                       width: "12.313rem",
                       textOverflow: "ellipsis",
