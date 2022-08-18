@@ -210,6 +210,7 @@
   },
   "devDependencies": {},
   "scripts": {
+    "setting": "npm install && cd server && npm install && cd .. && cd client && npm install",
     "server": "cd server && npm run start",
     "client": "cd client && npm run start",
     "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
