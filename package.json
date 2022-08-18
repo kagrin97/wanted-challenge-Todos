@@ -210,8 +210,8 @@
   },
   "devDependencies": {},
   "scripts": {
-    "server": "cd server && nodemon --ignore db/ --watch '*.ts' --exec node --experimental-modules --es-module-specifier-resolution=node --loader ts-node/esm index.ts",
-    "client": "cd client && npm start",
+    "server": "cd server && npm run start",
+    "client": "cd client && npm run start",
     "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
   },
   "author": "",
