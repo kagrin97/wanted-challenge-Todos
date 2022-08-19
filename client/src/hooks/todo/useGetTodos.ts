@@ -9,6 +9,8 @@ export default function useGetTodos() {
   const navigate = useNavigate();
 
   const { data } = useQuery("todoList", TodoGetApi, {
+    cacheTime: 3600,
+    staleTime: 60,
     onError: (error) => {
       if (error instanceof AxiosError) {
         alert(error?.response?.data["details"]);

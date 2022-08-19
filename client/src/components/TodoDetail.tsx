@@ -6,7 +6,7 @@ import useEditTodoStore from "store/useEditTodoStore";
 import useNullTodoStore from "store/useNullTodoStore";
 import useDetailTodoStore from "store/useDetailTodoStore";
 
-import { TextField, Button } from "@mui/material";
+import { TextField, Button, Skeleton } from "@mui/material";
 
 interface PropsType {
   isMobileTitle?: boolean;
@@ -117,7 +117,7 @@ export default function TodoDetail({ isMobileTitle }: PropsType) {
               </Button>
             </div>
           ) : (
-            ""
+            <Skeleton variant="rounded" width="16.313rem" height="16.313rem" />
           )}
         </section>
       )}

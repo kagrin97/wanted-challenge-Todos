@@ -10,7 +10,7 @@ import useGetWidthStore from "store/useGetWidthStore";
 
 import { Todo } from "types/todo";
 
-import { ListItemText, Button, Paper } from "@mui/material";
+import { Skeleton } from "@mui/material";
 
 import DeleteIcon from "@mui/icons-material/Delete";
 
@@ -44,45 +44,52 @@ export default function TodoList() {
   return (
     <article style={{ width: "16.313rem" }}>
       <h2>리스트</h2>
-      {todos &&
-        todos.map((todo: Todo) => (
-          <div key={todo.id}>
-            <ul>
-              <li>
-                <h3 style={{ display: "flex" }}>
-                  <Link
-                    style={{
-                      textDecoration: "none",
-                      color: curTodoId === todo.id ? "#1976D2" : "black",
-                    }}
-                    to={curTodoId === todo.id ? "/" : `/todo/${todo.id}`}
-                  >
-                    <div
+      {todos ? (
+        todos.length ? (
+          todos.map((todo: Todo) => (
+            <div key={todo.id}>
+              <ul>
+                <li>
+                  <h3 style={{ display: "flex" }}>
+                    <Link
                       style={{
-                        whiteSpace: "nowrap",
-                        overflow: "hidden",
-                        width: "12.313rem",
-                        textOverflow: "ellipsis",
+                        textDecoration: "none",
+                        color: curTodoId === todo.id ? "#1976D2" : "black",
                       }}
+                      to={curTodoId === todo.id ? "/" : `/todo/${todo.id}`}
                     >
-                      {todo.title}
-                    </div>
-                  </Link>
-                  <DeleteIcon
-                    onClick={() => onDelete(todo.id)}
-                    sx={{
-                      cursor: "pointer",
-                      color: "crimson",
-                    }}
-                  />
-                </h3>
-              </li>
-            </ul>
-            {curTodoId === todo.id && windowSize <= 689 && (
-              <TodoDetail isMobileTitle={isMobileTitle} />
-            )}
-          </div>
-        ))}
+                      <div
+                        style={{
+                          whiteSpace: "nowrap",
+                          overflow: "hidden",
+                          width: "12.313rem",
+                          textOverflow: "ellipsis",
+                        }}
+                      >
+                        {todo.title}
+                      </div>
+                    </Link>
+                    <DeleteIcon
+                      onClick={() => onDelete(todo.id)}
+                      sx={{
+                        cursor: "pointer",
+                        color: "crimson",
+                      }}
+                    />
+                  </h3>
+                </li>
+              </ul>
+              {curTodoId === todo.id && windowSize <= 689 && (
+                <TodoDetail isMobileTitle={isMobileTitle} />
+              )}
+            </div>
+          ))
+        ) : (
+          "Todo가 없습니다."
+        )
+      ) : (
+        <Skeleton variant="rounded" width="16.313rem" height="16.313rem" />
+      )}
     </article>
   );
 }

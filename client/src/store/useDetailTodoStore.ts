@@ -3,12 +3,12 @@ import create from "zustand";
 import { Todo } from "types/todo";
 
 interface DetailTodoStoreType {
-  detail: Todo;
+  detail: Todo | undefined;
   setDetail: (detail: Todo) => void;
 }
 
 const useDetailTodoStore = create<DetailTodoStoreType>((set) => ({
-  detail: { content: "", createdAt: "", id: "", title: "", updatedAt: "" },
+  detail: undefined,
 
   setDetail: (newDetail: Todo) => set({ detail: newDetail }),
 }));
