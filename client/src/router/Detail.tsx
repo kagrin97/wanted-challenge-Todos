@@ -6,15 +6,12 @@ import TodoForm from "components/TodoForm";
 import TodoDetail from "components/TodoDetail";
 import TodoList from "components/TodoList";
 
-import useGetDetail from "hooks/todo/useGetDetail";
-
 import useGetWidthStore from "store/useGetWidthStore";
 
 import validator from "validator";
 
 export default function Detail() {
   let { curTodoId } = useParams<{ curTodoId: string }>();
-  useGetDetail(curTodoId);
 
   const navigate = useNavigate();
 

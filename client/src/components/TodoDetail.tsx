@@ -1,18 +1,23 @@
 import React, { useState } from "react";
 
 import useUpdateTodo from "hooks/todo/useUpdateTodo";
+import useGetDetail from "hooks/todo/useGetDetail";
 
 import useEditTodoStore from "store/useEditTodoStore";
 import useNullTodoStore from "store/useNullTodoStore";
 import useDetailTodoStore from "store/useDetailTodoStore";
 
 import { TextField, Button, Skeleton } from "@mui/material";
+import { useParams } from "react-router-dom";
 
 interface PropsType {
   isMobileTitle?: boolean;
 }
 
 export default function TodoDetail({ isMobileTitle }: PropsType) {
+  let { curTodoId } = useParams<{ curTodoId: string }>();
+  useGetDetail(curTodoId);
+
   const { editId, editTitle, editText, setEditTitle, setEditText } =
     useEditTodoStore();
 
