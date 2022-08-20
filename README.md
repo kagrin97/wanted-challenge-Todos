@@ -8,7 +8,7 @@
 
   **/auth : 로그인, 회원가입, 토큰 생성, 삭제, 검사**
 
-  ![auth](https://user-images.githubusercontent.com/75124028/185536494-d08a5984-5870-4f20-adf2-9e0b81276349.gif)
+  <video controls width="470" src="https://user-images.githubusercontent.com/75124028/185750990-4984390c-ea51-48a4-a009-f217c15f1f53.mp4" ></video>
 
 - ### 1-2) Todo 추가, Todo 상세 정보
 
@@ -16,7 +16,7 @@
 
   **/todo/:todoId : todo추가및 상세정보를 보여줍니다.**
 
-  ![ADD, DETAIL](https://user-images.githubusercontent.com/75124028/185536845-dc3fad10-fd94-41b6-bd5c-103e8c3a788c.gif)
+  <video controls width="470" src="https://user-images.githubusercontent.com/75124028/185751538-0e478b0f-d0e0-4ce0-ae45-cf78bb93ae5a.mp4"></video>
 
 - ### 1-3) Todo 수정, Todo 삭제
 
@@ -24,7 +24,7 @@
 
   **/todo/:todoId : todo수정 및 삭제합니다.**
 
-  ![edit, delete](https://user-images.githubusercontent.com/75124028/185537138-1b760331-d8e7-497c-8978-d95a605df5dd.gif)
+  <video controls width="470" src="https://user-images.githubusercontent.com/75124028/185751578-9cd6019d-6e8f-44e9-8b85-18f35bace3a9.mp4"></video>
 
 - ### 1-4) 반응형 디자인
 
@@ -32,7 +32,7 @@
 
   **todo 리스트와 상세 정보를 스크린사이즈 690을 기준으로 바뀝니다.**
 
-  ![media query](https://user-images.githubusercontent.com/75124028/185537603-250dcbb5-880b-47c6-9a1f-985d067d9d3e.gif)
+  <video controls width="470" src="https://user-images.githubusercontent.com/75124028/185751615-6baed515-6950-47a4-9705-b1a1cfe565a6.mp4"></video>
 
 ## 2. 🎉 설치, 환경설정, 실행방법
 
@@ -175,56 +175,21 @@
   │  │  └─ todo.ts
   │  ├─ reportWebVitals.ts
   │  ├─ store
-  │  │  ├─ useDetailTodoStore.ts
-  │  │  ├─ useEditTodoStore.ts
-  │  │  ├─ useGetWidthStore.ts
-  │  │  ├─ useErrorStore.ts
-  │  │  └─ useNullTodoStore.ts
   │  ├─ hooks
   │  │  ├─ auth
-  │  │  │  ├─ useSignUp.ts
-  │  │  │  └─ useLogIn.ts
   │  │  └─ todo
-  │  │     ├─ useDeleteTodo.ts
-  │  │     ├─ useUpdateTodo.ts
-  │  │     ├─ useAddTodo.ts
-  │  │     ├─ useGetDetail.ts
-  │  │     └─ useGetTodos.ts
   │  ├─ setupTests.ts
   │  ├─ components
-  │  │  ├─ AuthForm.tsx
-  │  │  ├─ TodoForm.tsx
-  │  │  ├─ Nav.tsx
-  │  │  ├─ TodoDetail.tsx
-  │  │  └─ TodoList.tsx
   │  ├─ index.tsx
   │  ├─ App.tsx
   │  ├─ router
-  │  │  ├─ NotFound.tsx
-  │  │  ├─ Auth.tsx
-  │  │  ├─ Detail.tsx
-  │  │  └─ Home.tsx
   │  └─ api
   │     ├─ auth
-  │     │  ├─ SignUpApi.ts
-  │     │  └─ LogInApi.ts
   │     ├─ api.ts
   │     └─ todo
-  │        ├─ TodoDeleteApi.ts
-  │        ├─ TodoDetailsApi.ts
-  │        ├─ TodoAddApi.ts
-  │        ├─ TodoGetApi.ts
-  │        └─ TodoUpdateApi.ts
   ├─ .gitignore
   ├─ package.json
   ├─ tsconfig.json
-  └─ public
-     ├─ robots.txt
-     ├─ logo192.png
-     ├─ logo512.png
-     ├─ favicon.ico
-     ├─ index.html
-     └─ manifest.json
   ```
 
 ## 6. 🤔 과제 진행 시 주안점
