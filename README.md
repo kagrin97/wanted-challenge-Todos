@@ -8,7 +8,7 @@
 
   **/auth : 로그인, 회원가입, 토큰 생성, 삭제, 검사**
 
-  <video controls width="470" src="https://user-images.githubusercontent.com/75124028/185750990-4984390c-ea51-48a4-a009-f217c15f1f53.mp4" ></video>
+  <video controls width=70% src="https://user-images.githubusercontent.com/75124028/185750990-4984390c-ea51-48a4-a009-f217c15f1f53.mp4" ></video>
 
 - ### 1-2) Todo 추가, Todo 상세 정보
 
@@ -16,7 +16,7 @@
 
   **/todo/:todoId : todo추가및 상세정보를 보여줍니다.**
 
-  <video controls width="470" src="https://user-images.githubusercontent.com/75124028/185751538-0e478b0f-d0e0-4ce0-ae45-cf78bb93ae5a.mp4"></video>
+  <video controls width=70% src="https://user-images.githubusercontent.com/75124028/185751538-0e478b0f-d0e0-4ce0-ae45-cf78bb93ae5a.mp4"></video>
 
 - ### 1-3) Todo 수정, Todo 삭제
 
@@ -24,7 +24,7 @@
 
   **/todo/:todoId : todo수정 및 삭제합니다.**
 
-  <video controls width="470" src="https://user-images.githubusercontent.com/75124028/185751578-9cd6019d-6e8f-44e9-8b85-18f35bace3a9.mp4"></video>
+  <video controls width=70% src="https://user-images.githubusercontent.com/75124028/185751578-9cd6019d-6e8f-44e9-8b85-18f35bace3a9.mp4"></video>
 
 - ### 1-4) 반응형 디자인
 
@@ -32,7 +32,7 @@
 
   **todo 리스트와 상세 정보를 스크린사이즈 690을 기준으로 바뀝니다.**
 
-  <video controls width="470" src="https://user-images.githubusercontent.com/75124028/185751615-6baed515-6950-47a4-9705-b1a1cfe565a6.mp4"></video>
+  <video controls width=70% src="https://user-images.githubusercontent.com/75124028/185751615-6baed515-6950-47a4-9705-b1a1cfe565a6.mp4"></video>
 
 ## 2. 🎉 설치, 환경설정, 실행방법
 
@@ -216,11 +216,15 @@ components 폴더의 파일을 todo, auth별로 폴더를 또 만들까 하다�
 
 ---
 
-상세정보 화면에서 수정 버튼을 누르면 모달창이 나와서 수정할수있는 기능을 구현하고
+todo를 수정하거나 삭제할때 alert을 사용하는대신 모달창이 나와서
 
-싶었지만 기능 요구 사항중에 뒤로가기시 이전 데이터를 보여줘야하는 기능을 구현하느라
+확인을 받는 기능을 넣을 예정입니다.
 
-모달창을 구현하지 못했습니다. 😥 (다른 좋은 방법이 있을까요? 🤔)
+에러 바운더리를 적용할 예정입니다.
+
+스켈레톤 ui를 사용할때 인터넷이 너무 빠른 경우 깜빡이는 현상을 막기 위해서
+
+무조건 1초동안은 스켈레톤 ui가 작동하도록 했습니다. [적용된 TodoList](./client/src/components/TodoList.tsx)
 
 ## 8. 📝 프리온보딩 일지
 

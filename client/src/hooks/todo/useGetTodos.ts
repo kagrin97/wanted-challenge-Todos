@@ -8,7 +8,7 @@ import TodoGetApi from "api/todo/TodoGetApi";
 export default function useGetTodos() {
   const navigate = useNavigate();
 
-  const { data } = useQuery("todoList", TodoGetApi, {
+  return useQuery("todoList", TodoGetApi, {
     cacheTime: 3600,
     staleTime: 60,
     onError: (error) => {
@@ -18,5 +18,4 @@ export default function useGetTodos() {
       }
     },
   });
-  return data?.data.data;
 }

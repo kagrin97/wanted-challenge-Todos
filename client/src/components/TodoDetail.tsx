@@ -16,6 +16,7 @@ interface PropsType {
 
 export default function TodoDetail({ isMobileTitle }: PropsType) {
   let { curTodoId } = useParams<{ curTodoId: string }>();
+
   useGetDetail(curTodoId);
 
   const { editId, editTitle, editText, setEditTitle, setEditText } =
@@ -105,7 +106,7 @@ export default function TodoDetail({ isMobileTitle }: PropsType) {
       ) : (
         <section>
           {!isMobileTitle && <h2>상세 정보</h2>}
-          {detail ? (
+          {detail && (
             <div
               key={detail.id}
               style={{
@@ -121,8 +122,6 @@ export default function TodoDetail({ isMobileTitle }: PropsType) {
                 수정
               </Button>
             </div>
-          ) : (
-            <Skeleton variant="rounded" width="16.313rem" height="16.313rem" />
           )}
         </section>
       )}

@@ -26,7 +26,7 @@ export default async function useGetDetail(curTodoId: string | undefined) {
     setIsTodoNull(false);
   };
 
-  useQuery(["todoDetail", curTodoId], () => TodoDetailsApi(curTodoId), {
+  return useQuery(["todoDetail", curTodoId], () => TodoDetailsApi(curTodoId), {
     cacheTime: 3600,
     staleTime: 60,
     onSuccess: (data) => {

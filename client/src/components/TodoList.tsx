@@ -13,6 +13,7 @@ import { Todo } from "types/todo";
 import { Skeleton } from "@mui/material";
 
 import DeleteIcon from "@mui/icons-material/Delete";
+import { useEffect, useState } from "react";
 
 export default function TodoList() {
   let { curTodoId } = useParams();
@@ -21,7 +22,7 @@ export default function TodoList() {
 
   const { windowSize } = useGetWidthStore();
 
-  const todos = useGetTodos();
+  const { data: todos, isLoading, isRefetching } = useGetTodos();
 
   const deleteTodoMutation = useDeleteTodo("");
 
@@ -41,12 +42,22 @@ export default function TodoList() {
     }
   };
 
+  const [isSkeleton, setIsSkeleton] = useState(true);
+
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+    if (!isLoading && !isRefetching) {
+      timer = setTimeout(() => setIsSkeleton(false), 1000);
+    }
+    return () => clearTimeout(timer);
+  }, [isLoading, isRefetching]);
+
   return (
     <article style={{ width: "16.313rem" }}>
       <h2>리스트</h2>
-      {todos ? (
-        todos.length ? (
-          todos.map((todo: Todo) => (
+      {!isSkeleton ? (
+        todos?.data.data.length ? (
+          todos?.data.data.map((todo: Todo) => (
             <div key={todo.id}>
               <ul>
                 <li>
