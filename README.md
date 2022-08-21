@@ -1,3 +1,27 @@
+# 👀 프로젝트 목차
+
+- ## [1. 최종 구현 영상](#1-😎-최종-구현-영상)
+  - [1-1. Login / SignUp / Check Token](#1-1-login--signup--check-token)
+  - [1-2. Todo 추가, Todo 상세 정보](#1-2-todo-추가-todo-상세-정보)
+  - [1-3. Todo 수정, Todo 삭제](#1-3-todo-수정-todo-삭제)
+  - [1-4. 반응형 디자인](#1-4-반응형-디자인)
+- ## [2. 설치, 환경설정, 실행방법](#2-🎉-설치-환경설정-실행방법)
+  - 2-1. 설치, 환경 설정
+  - 2-2. 실행
+- ## [3. 구현된 기능 목록](#3-🚀-구현된-기능-목록)
+  - 3-1. Login / SignUp
+  - 3-2. Todo List
+- ## [4. 사용한 프레임워크및 라이브러리](#4-🎨-사용한-프레임워크및-라이브러리)
+- ## [5. 폴더 구조](#5-📚-폴더-구조)
+  - 5-1. 폴더 구조 설명
+  - 5-2. 폴더 구조 tree
+- ## [6. 과제 진행 시 주안점](#6-🤔-과제-진행-시-주안점)
+- ## [7. 한계점 및 개선 사항](#7-🔥-한계점-및-개선-사항)
+- ## [8. 프리온보딩 일지](#8-📝-프리온보딩-일지)
+  - 원티드 프리온보딩 8월 챌린지 [1-1]
+  - 원티드 프리온보딩 8월 챌린지 [1-2]
+  - 원티드 프리온보딩 8월 챌린지 [2-1]
+
 ## 1. 😎 최종 구현 영상
 
 ---
@@ -8,7 +32,7 @@
 
   **/auth : 로그인, 회원가입, 토큰 생성, 삭제, 검사**
 
-  <video controls width=70% src="https://user-images.githubusercontent.com/75124028/185750990-4984390c-ea51-48a4-a009-f217c15f1f53.mp4" ></video>
+  <video controls width=60% src="https://user-images.githubusercontent.com/75124028/185750990-4984390c-ea51-48a4-a009-f217c15f1f53.mp4" ></video>
 
 - ### 1-2) Todo 추가, Todo 상세 정보
 
@@ -16,7 +40,7 @@
 
   **/todo/:todoId : todo추가및 상세정보를 보여줍니다.**
 
-  <video controls width=70% src="https://user-images.githubusercontent.com/75124028/185751538-0e478b0f-d0e0-4ce0-ae45-cf78bb93ae5a.mp4"></video>
+  <video controls width=60% src="https://user-images.githubusercontent.com/75124028/185751538-0e478b0f-d0e0-4ce0-ae45-cf78bb93ae5a.mp4"></video>
 
 - ### 1-3) Todo 수정, Todo 삭제
 
@@ -24,7 +48,7 @@
 
   **/todo/:todoId : todo수정 및 삭제합니다.**
 
-  <video controls width=70% src="https://user-images.githubusercontent.com/75124028/185751578-9cd6019d-6e8f-44e9-8b85-18f35bace3a9.mp4"></video>
+  <video controls width=60% src="https://user-images.githubusercontent.com/75124028/185751578-9cd6019d-6e8f-44e9-8b85-18f35bace3a9.mp4"></video>
 
 - ### 1-4) 반응형 디자인
 
@@ -32,7 +56,7 @@
 
   **todo 리스트와 상세 정보를 스크린사이즈 690을 기준으로 바뀝니다.**
 
-  <video controls width=70% src="https://user-images.githubusercontent.com/75124028/185751615-6baed515-6950-47a4-9705-b1a1cfe565a6.mp4"></video>
+  <video controls width=60% src="https://user-images.githubusercontent.com/75124028/185751615-6baed515-6950-47a4-9705-b1a1cfe565a6.mp4"></video>
 
 ## 2. 🎉 설치, 환경설정, 실행방법
 
@@ -143,17 +167,14 @@
 
   자주 쓰이는 파일을 파일의 성질에 따라서 각각 폴더별로 구분을 했습니다.
 
-  - **router** : 한 페이지를 구성하는 루트 파일입니다.
-
-  - **components** : 페이지 안에서 자주 쓰이는 컴포넌트를 모아 놓았습니다.
-
-  - **api** : axios로 api통신을 하는 함수를 모아놓은 폴더입니다.
-
-  - **hooks** : React-query를 사용해 CRUD를 수행하는 hook을 모아놓은 폴더입니다.
-
-  - **store** : 자주 쓰이는 변수와 함수를 모아놓은 폴더입니다.
-
-  - **types** : 자주 쓰이는 타입을 모아놓은 폴더입니다.
+  | 폴더           | 용도                                                             |
+  | -------------- | ---------------------------------------------------------------- |
+  | **router**     | 한 페이지를 구성하는 루트 파일입니다.                            |
+  | **components** | 페이지 안에서 자주 쓰이는 컴포넌트를 모아 놓았습니다.            |
+  | **api**        | axios로 api통신을 하는 함수를 모아놓은 폴더입니다.               |
+  | **hooks**      | React-query를 사용해 CRUD를 수행하는 hook을 모아놓은 폴더입니다. |
+  | **store**      | react-query의 queryClient변수 선언 및 export. config 코드 작성   |
+  | **types**      | 자주 쓰이는 타입을 모아놓은 폴더입니다.                          |
 
 - ### 5-2) 폴더 구조 tree
 
@@ -172,7 +193,6 @@
   ├─ src
   │  ├─ react-app-env.d.ts
   │  ├─ types
-  │  │  └─ todo.ts
   │  ├─ reportWebVitals.ts
   │  ├─ store
   │  ├─ hooks
@@ -185,7 +205,6 @@
   │  ├─ router
   │  └─ api
   │     ├─ auth
-  │     ├─ api.ts
   │     └─ todo
   ├─ .gitignore
   ├─ package.json
