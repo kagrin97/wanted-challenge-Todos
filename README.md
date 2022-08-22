@@ -1,4 +1,4 @@
-# 👀 프로젝트 목차
+# 👀 Todo 프로젝트 목차
 
 - [1. 최종 구현 영상](#1-최종-구현-영상)
   - [1-1. Login / SignUp / Check Token](#1-1-login--signup--check-token)
@@ -229,7 +229,9 @@ todo를 수정하거나 삭제할때 alert을 사용하는대신 모달창이 �
 
 스켈레톤 ui를 사용할때 인터넷이 너무 빠른 경우 깜빡이는 현상을 막기 위해서
 
-무조건 1초동안은 스켈레톤 ui가 작동하도록 했습니다. [적용된 TodoList](./client/src/components/TodoList.tsx)
+무조건 1초동안은 스켈레톤 ui가 작동하도록 했습니다.
+
+https://github.com/kagrin97/wanted-challenge-Todos/blob/67f4693215cb8a1fd2d6b553e72646a7e0eb9a1d/client/src/components/TodoList.tsx#L45-L53
 
 ## 8. 프리온보딩 일지
 
