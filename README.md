@@ -240,3 +240,5 @@ https://github.com/kagrin97/wanted-challenge-Todos/blob/67f4693215cb8a1fd2d6b553
 - <a href="https://kagrin97-blog.vercel.app/blog/other-%ED%94%84%EB%A6%AC%EC%98%A8%EB%B3%B4%EB%94%A98%EC%9B%94%EC%B1%8C%EB%A6%B0%EC%A7%80[1-2]">원티드 프리온보딩 8월 챌린지 [1-2] 일지</a>
 
 - <a href="https://kagrin97-blog.vercel.app/blog/other-%ED%94%84%EB%A6%AC%EC%98%A8%EB%B3%B4%EB%94%A98%EC%9B%94%EC%B1%8C%EB%A6%B0%EC%A7%80[2-1]">원티드 프리온보딩 8월 챌린지 [2-1] 일지</a>
+
+- <a href="https://kagrin97-blog.vercel.app/blog/other-%ED%94%84%EB%A6%AC%EC%98%A8%EB%B3%B4%EB%94%A98%EC%9B%94%EC%B1%8C%EB%A6%B0%EC%A7%80[2-2]">원티드 프리온보딩 8월 챌린지 [2-2] 일지</a>
