@@ -7,13 +7,17 @@ import useEditTodoStore from "store/useEditTodoStore";
 import useNullTodoStore from "store/useNullTodoStore";
 import useDetailTodoStore from "store/useDetailTodoStore";
 
-import { TextField, Button, Skeleton } from "@mui/material";
+import { TextField, Button } from "@mui/material";
 import { useParams } from "react-router-dom";
 
 interface PropsType {
   isMobileTitle?: boolean;
 }
 
+/**
+ * 상세정보 화면을 구성하는 컴포넌트
+ * @param isMobileTitle 모바일일경우 제목을 안 보여줌
+ */
 export default function TodoDetail({ isMobileTitle }: PropsType) {
   let { curTodoId } = useParams<{ curTodoId: string }>();
 

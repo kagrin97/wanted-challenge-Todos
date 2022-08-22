@@ -11,6 +11,11 @@ import useNullTodoStore from "store/useNullTodoStore";
 
 import { Todo } from "types/todo";
 
+/**
+ * 현재 선택된 todo의 id를 받아서 상세정보를 저장하는 함수
+ * @param curTodoId 현재 선택된 todo의 id
+ * @returns query
+ */
 export default async function useGetDetail(curTodoId: string | undefined) {
   const { setDetail } = useDetailTodoStore();
   const { setEditTitle, setEditText, setEditId } = useEditTodoStore();

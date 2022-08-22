@@ -13,6 +13,13 @@ interface PropsType {
   editText: string;
 }
 
+/**
+ * 수정할 todo의 id, 수정할 todo의 제목, 수정할 todo의 내용을 받아서 todo를 수정하는 mutation을 리턴하는 함수
+ * @param editId 수정할 todo의 id
+ * @param editTitle 수정할 todo의 Title
+ * @param editText 수정할 todo의 Text
+ * @returns Mutation
+ */
 export default function useUpdateTodo({
   editId,
   editTitle,

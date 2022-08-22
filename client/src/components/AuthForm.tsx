@@ -7,6 +7,9 @@ import useErrorStore from "store/useErrorStore";
 
 import { Paper, TextField, ButtonGroup, Button } from "@mui/material";
 
+/**
+ * 로그인과 회원가입시 필요한 input 컴포넌트
+ */
 export default function AuthForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

@@ -15,6 +15,9 @@ import { Skeleton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useEffect, useState } from "react";
 
+/**
+ * Todo List를 구성하는 컴포넌트
+ */
 export default function TodoList() {
   let { curTodoId } = useParams();
 

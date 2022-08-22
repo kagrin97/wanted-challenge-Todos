@@ -12,6 +12,12 @@ interface PropsType {
   text: string;
 }
 
+/**
+ * title과 text를 받아서 todo를 추가하는 mutation을 리턴하는 함수
+ * @param title 제목
+ * @param text 내용
+ * @returns mutation
+ */
 export default function useAddTodo({ title, text }: PropsType) {
   const navigate = useNavigate();
 

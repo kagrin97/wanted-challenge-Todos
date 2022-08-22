@@ -4,6 +4,9 @@ import useAddTodo from "hooks/todo/useAddTodo";
 
 import { TextField, Button } from "@mui/material";
 
+/**
+ * 새로운 todo를 추가하는 컴포넌트
+ */
 export default function TodoForm() {
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");

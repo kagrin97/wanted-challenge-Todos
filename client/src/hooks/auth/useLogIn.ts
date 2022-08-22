@@ -12,6 +12,12 @@ interface PropsType {
   password: string;
 }
 
+/**
+ * 이메일과 비밀번호를 입력하면 로그인 요청을 하는 mutation을 리턴하는 함수
+ * @param email 이메일
+ * @param password 비밀번호
+ * @returns mutation
+ */
 export default function useLogIn(email: string, password: string) {
   const navigate = useNavigate();
 

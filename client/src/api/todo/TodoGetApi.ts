@@ -1,6 +1,9 @@
 import { apiBase } from "../api";
 
-export default function TodoApi() {
+/**
+ * 모든 Todo를 가져오는 API
+ */
+export default function TodoGetApi() {
   const token = localStorage.getItem("login-token");
   return apiBase.get(`/todos`, {
     headers: {
